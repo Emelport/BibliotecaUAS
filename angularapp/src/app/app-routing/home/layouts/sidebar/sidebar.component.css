@@ -1,0 +1,63 @@
+/* app.component.css */
+
+.sidebar {
+  background-color: #ffffff;
+  width: 240px; /* Define el ancho que desees para la barra lateral */
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.logo-img {
+  max-width: 50px;
+  margin-right: 10px;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+}
+
+.nav-list li {
+  margin: 0;
+  padding: 0;
+}
+
+.nav-list a {
+  text-decoration: none;
+  color: #000000;
+  display: block;
+  padding: 10px 16px;
+  transition: background-color 0.3s;
+}
+
+.nav-list a:hover {
+  background-color: #e0e0e0;
+}
+
+.hide-button {
+  background-color: #bea42a;
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.hide-button:hover {
+  background-color: #d8b056;
+}

@@ -1,0 +1,69 @@
+<!-- app.component.html -->
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-2 col-md-3 col-sm-4 col-12">
+      <div class="sidebar">
+        <button class="hide-button" id="toggle-sidebar" (click)="toggleSidebar()">
+          Ocultar la Sidebar
+        </button>
+        <div class="logo">
+          <a>
+            <img src="../../../assets/aguila.png" alt="logo" class="logo-img">
+            BIBLIOTECA
+          </a>
+        </div>
+        <ul class="nav-list">
+          <li>
+            <button mat-menu-item [matMenuTriggerFor]="reporteUsuariosRDUMenu" (mouseenter)="showSubMenu('reporteUsuariosRDU')">
+              Reporte de Usuarios RDU
+            </button>
+            <mat-menu #reporteUsuariosRDUMenu="matMenu" xPosition="before" (closed)="hideSubMenu()">
+              <button mat-menu-item>Capturar</button>
+              <button mat-menu-item>Consultar</button>
+            </mat-menu>
+          </li>
+          <li>
+            <button mat-menu-item [matMenuTriggerFor]="prestamosMenu" (mouseenter)="showSubMenu('prestamos')">
+              Prestamos
+            </button>
+            <mat-menu #prestamosMenu="matMenu" xPosition="before" (closed)="hideSubMenu()">
+              <button mat-menu-item>Capturar</button>
+              <button mat-menu-item>Consultar</button>
+            </mat-menu>
+          </li>
+          <li>
+            <button mat-menu-item [matMenuTriggerFor]="cubiculosMenu" (mouseenter)="showSubMenu('cubiculos')">
+              Cubiculos
+            </button>
+            <mat-menu #cubiculosMenu="matMenu" xPosition="before" (closed)="hideSubMenu()">
+              <button mat-menu-item>Capturar</button>
+              <button mat-menu-item>Consultar</button>
+            </mat-menu>
+          </li>
+          <li>
+            <button mat-menu-item [matMenuTriggerFor]="areaVirtualMenu" (mouseenter)="showSubMenu('areaVirtual')">
+              Area Virtual
+            </button>
+            <mat-menu #areaVirtualMenu="matMenu" xPosition="before" (closed)="hideSubMenu()">
+              <button mat-menu-item>Capturar</button>
+              <button mat-menu-item>Consultar</button>
+            </mat-menu>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-10 col-md-9 col-sm-8 col-12">
+      <div class="row">
+        <div class="col-12">
+          <!-- Header -->
+          <app-header></app-header>
+        </div>
+        <div class="col-12">
+          <!-- Router Outlet -->
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

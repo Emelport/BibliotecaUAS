@@ -1,0 +1,16 @@
+/* Estilos para el Sidebar */
+.app-sidebar {
+  background-color: #e0e0e0; /* Color de fondo del sidebar */
+  border-right: 1px solid #ccc; /* Borde a la derecha del sidebar */
+}
+
+/* Estilos para el Header */
+.app-header {
+  background-color: #007bff; /* Color de fondo del header */
+  color: white; /* Color de texto del header */
+}
+
+/* Estilos para el Router Outlet (Área principal de contenido) */
+.router-outlet {
+  background-color: #f0f0f0; /* Color de fondo del área principal de contenido */
+}

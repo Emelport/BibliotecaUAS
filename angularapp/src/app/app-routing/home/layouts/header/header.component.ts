@@ -6,7 +6,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  // Puedes agregar lógica personalizada aquí, por ejemplo, para manejar la apertura del menú y cerrar sesión.
+  // Debes importar las clases y servicios necesarios.
+
+  openSettings() {
+    // Agrega lógica para abrir la configuración.
+    console.log('Abrir configuración');
+  }
+
   logout() {
-    localStorage.removeItem('token');
+    // Agrega lógica para cerrar sesión.
+    console.log('Cerrar sesión');
+    //recargar la pagina
+    window.location.reload();
   }
 }

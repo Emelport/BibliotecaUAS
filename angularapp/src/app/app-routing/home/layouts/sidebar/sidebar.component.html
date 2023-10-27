@@ -1,69 +1,47 @@
-<!-- app.component.html -->
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-lg-2 col-md-3 col-sm-4 col-12">
-      <div class="sidebar">
-        <button class="hide-button" id="toggle-sidebar" (click)="toggleSidebar()">
-          Ocultar la Sidebar
-        </button>
+<div class="container">
+  <mat-sidenav-container class="sidebar-container">
+    <mat-sidenav #sidenav mode="side" [opened]="isSidebarVisible">
+      <a class="logo-and-title" routerLink="/home" routerLinkActive="active">
         <div class="logo">
-          <a>
-            <img src="../../../assets/aguila.png" alt="logo" class="logo-img">
-            BIBLIOTECA
+          <img src="../../../assets/aguila.png" alt="logo" class="logo-img">
+        </div>
+        <div class="title">
+          <span  class="display-4">BIBLIOTECA</span>
+        </div>
+      </a>
+      <ul class="nav-list">
+        <li>
+          <a routerLink="/home/rdu" routerLinkActive="active">
+            <img src="../../../assets/icono_catalogos.png" alt="Icono Catálogos" class="icon">
+            <span *ngIf="isSidebarVisible">Reporte de Usuarios (RDU)</span>
           </a>
-        </div>
-        <ul class="nav-list">
-          <li>
-            <button mat-menu-item [matMenuTriggerFor]="reporteUsuariosRDUMenu" (mouseenter)="showSubMenu('reporteUsuariosRDU')">
-              Reporte de Usuarios RDU
-            </button>
-            <mat-menu #reporteUsuariosRDUMenu="matMenu" xPosition="before" (closed)="hideSubMenu()">
-              <button mat-menu-item>Capturar</button>
-              <button mat-menu-item>Consultar</button>
-            </mat-menu>
-          </li>
-          <li>
-            <button mat-menu-item [matMenuTriggerFor]="prestamosMenu" (mouseenter)="showSubMenu('prestamos')">
-              Prestamos
-            </button>
-            <mat-menu #prestamosMenu="matMenu" xPosition="before" (closed)="hideSubMenu()">
-              <button mat-menu-item>Capturar</button>
-              <button mat-menu-item>Consultar</button>
-            </mat-menu>
-          </li>
-          <li>
-            <button mat-menu-item [matMenuTriggerFor]="cubiculosMenu" (mouseenter)="showSubMenu('cubiculos')">
-              Cubiculos
-            </button>
-            <mat-menu #cubiculosMenu="matMenu" xPosition="before" (closed)="hideSubMenu()">
-              <button mat-menu-item>Capturar</button>
-              <button mat-menu-item>Consultar</button>
-            </mat-menu>
-          </li>
-          <li>
-            <button mat-menu-item [matMenuTriggerFor]="areaVirtualMenu" (mouseenter)="showSubMenu('areaVirtual')">
-              Area Virtual
-            </button>
-            <mat-menu #areaVirtualMenu="matMenu" xPosition="before" (closed)="hideSubMenu()">
-              <button mat-menu-item>Capturar</button>
-              <button mat-menu-item>Consultar</button>
-            </mat-menu>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="col-lg-10 col-md-9 col-sm-8 col-12">
-      <div class="row">
-        <div class="col-12">
-          <!-- Header -->
-          <app-header></app-header>
-        </div>
-        <div class="col-12">
-          <!-- Router Outlet -->
-          <router-outlet></router-outlet>
-        </div>
-      </div>
-    </div>
-  </div>
+        </li>
+        <!-- <li>
+          <a routerLink="/home/capturas" routerLinkActive="active">
+            <img src="../../../assets/icono_capturas.png" alt="Icono Capturas" class="icon">
+            <span *ngIf="isSidebarVisible">Capturas</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="../../../assets/icono_consultas.png" alt="Icono Consultas" class="icon">
+            <span *ngIf="isSidebarVisible">Consultas</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="../../../assets/icono_contabilidad.png" alt="Icono Contabilidad" class="icon">
+            <span *ngIf="isSidebarVisible">Contabilidad</span>
+          </a>
+        </li> -->
+      </ul>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <!-- Botón para ocultar/mostrar el sidebar utilizando mat-button-toggle -->
+      <mat-button-toggle (change)="toggleSidebar()" class="toggle-button custom-button">
+        <mat-icon>{{ isSidebarVisible ? 'chevron_left' : 'chevron_right' }}</mat-icon>
+      </mat-button-toggle>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>

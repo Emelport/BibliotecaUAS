@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FullComponent } from './full/full.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
 import { HeaderComponent } from './layouts/header/header.component';
-import { HomeRoutingModule } from './home-routing.module';
 import { CatalogosModule } from './catalogos/catalogos.module';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
 import { MaterialModule } from '../../../../src/app/material.module';
+import { RduComponent } from './rdu/rdu.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { AppRoutingModule } from '../app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 
@@ -16,15 +18,17 @@ import { MaterialModule } from '../../../../src/app/material.module';
     FullComponent,
     SidebarComponent,
     HeaderComponent,
-    FullComponent
+    FullComponent,
+    RduComponent,
+    WelcomeComponent
   ],
   imports: [
     CommonModule,
-    HomeRoutingModule,
     CatalogosModule,
-    MatSidenavModule,
-    MatListModule,
-    MaterialModule
+    MaterialModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    MatNativeDateModule
   ],
   exports: [
     FullComponent

@@ -1,0 +1,47 @@
+<div class="container">
+  <mat-sidenav-container class="sidebar-container">
+    <mat-sidenav #sidenav mode="side" [opened]="isSidebarVisible">
+      <a class="logo-and-title" routerLink="/home" routerLinkActive="active">
+        <div class="logo">
+          <img src="../../../assets/aguila.png" alt="logo" class="logo-img">
+        </div>
+        <div class="title">
+          <span  class="display-4">BIBLIOTECA</span>
+        </div>
+      </a>
+      <ul class="nav-list">
+        <li>
+          <a routerLink="/home/rdu" routerLinkActive="active">
+            <img src="../../../assets/icono_catalogos.png" alt="Icono Catálogos" class="icon">
+            <span *ngIf="isSidebarVisible">Reporte de Usuarios (RDU)</span>
+          </a>
+        </li>
+        <!-- <li>
+          <a routerLink="/home/capturas" routerLinkActive="active">
+            <img src="../../../assets/icono_capturas.png" alt="Icono Capturas" class="icon">
+            <span *ngIf="isSidebarVisible">Capturas</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="../../../assets/icono_consultas.png" alt="Icono Consultas" class="icon">
+            <span *ngIf="isSidebarVisible">Consultas</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="../../../assets/icono_contabilidad.png" alt="Icono Contabilidad" class="icon">
+            <span *ngIf="isSidebarVisible">Contabilidad</span>
+          </a>
+        </li> -->
+      </ul>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <!-- Botón para ocultar/mostrar el sidebar utilizando mat-button-toggle -->
+      <mat-button-toggle (change)="toggleSidebar()" class="toggle-button custom-button">
+        <mat-icon>{{ isSidebarVisible ? 'chevron_left' : 'chevron_right' }}</mat-icon>
+      </mat-button-toggle>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

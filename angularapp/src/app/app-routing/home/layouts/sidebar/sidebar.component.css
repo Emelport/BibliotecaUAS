@@ -1,0 +1,145 @@
+/* Estilos generales */
+.container {
+  display: flex;
+  background: #f0f0f0;
+  height: 100vh;
+  overflow: hidden;
+  padding: 0;
+  
+}
+
+.sidebar {
+  width: 240px;
+  transition: width 0.3s;
+  padding: 10px;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+  .sidebar.hidden {
+    width: 60px;
+  }
+
+/* Logo y título */
+.logo-and-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  background: #1C6FB6; /* Color de fondo amarillo solo para el área del logo */
+  padding: 10px; /* Agregado espacio interno para el logo y título */
+  border-radius: 10px 10px 10px 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  /* letras blancas */
+  color: #FFFFFF;
+
+}
+
+.logo-img {
+  width: 48px;
+  height: 48px;
+  margin-right: 10px;
+
+}
+
+  .logo-img:hover {
+    transform: scale(1.05);
+    border-radius: 20px 20px 20px 20px;
+  }
+
+.logo-and-title a:hover {
+  transform: scale(1.05);
+}
+
+.title span {
+  font-weight: bold;
+  color: #000;
+  font-size: 18px;
+  font-family: Roboto, serif;
+}
+
+/* Menús */
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+  .nav-list li {
+    margin-bottom: 20px;
+  }
+
+    .nav-list li a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #000; /* Color del texto del menú */
+      transition: background-color 0.2s, color 0.2s;
+      padding: 8px;
+      border-radius: 5px;
+    }
+
+.icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+}
+
+/* Cambia el fondo al pasar el mouse en los menús */
+.nav-list li a:hover {
+  background-color: #164686;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* Estilo para el botón de ocultar/mostrar */
+.hide-button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+  padding: 0;
+  position: absolute;
+  top: 10px;
+  right: -40px;
+}
+
+  /* Estilo para el ícono del botón de ocultar/mostrar */
+  .hide-button i {
+    color: #164686;
+    font-size: 20px;
+    transition: transform 0.2s;
+  }
+
+  /* Cambia la rotación y el tamaño del ícono al pasar el mouse en el botón de ocultar/mostrar */
+  .hide-button:hover i {
+    transform: rotate(180deg) scale(1.2);
+  }
+
+.custom-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+  .custom-button mat-icon {
+    font-size: 24px;
+    color: #164686; /* Color de icono */
+    transition: transform 0.2s;
+  }
+
+  .custom-button:hover mat-icon {
+    transform: scale(1.2);
+  }
+
+  .mat-sidenav{
+    /* dale 20 px mas de espacio por todos los lados*/
+    padding: 20px;
+
+    
+  }

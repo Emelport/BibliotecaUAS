@@ -1,0 +1,104 @@
+<button mat-button (click)="toggleView('capturar')">Capturar</button>
+<button mat-button (click)="toggleView('consultas')">Consultas</button>
+
+<div *ngIf="view === 'capturar'">
+  <form [formGroup]="capturasForm" (ngSubmit)="submitForm()" class="formulario">
+    <mat-form-field>
+      <input matInput type="text" formControlName="ID" placeholder="ID">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="nombre" placeholder="Nombre">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Sexo</mat-label>
+      <mat-select formControlName="sexo">
+        <mat-option value="masculino">Masculino</mat-option>
+        <mat-option value="femenino">Femenino</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-checkbox formControlName="esInterno">Es interno</mat-checkbox>
+    <mat-checkbox formControlName="esExterno">Es externo</mat-checkbox>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" formControlName="fecha" placeholder="Fecha">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="idFacultad" placeholder="ID Facultad">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="idCarrera" placeholder="ID Carrera">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="hora" placeholder="Hora">
+    </mat-form-field>
+
+    <button mat-button type="submit">Guardar</button>
+  </form>
+</div>
+
+<div *ngIf="view === 'consultas'" class="barra">
+  <mat-form-field>
+    <input matInput type="text" placeholder="Buscar ID" (input)="applyFilters()">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" placeholder="Buscar Nombre" (input)="applyFilters()">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" placeholder="Buscar ID Facultad" (input)="applyFilters()">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" placeholder="Buscar ID Carrera" (input)="applyFilters()">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="rangePicker" placeholder="Rango de fechas" (input)="applyFilters()">
+    <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+    <mat-datepicker #rangePicker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-checkbox (change)="applyFilters()">Filtrar por interno</mat-checkbox>
+  <mat-checkbox (change)="applyFilters()">Filtrar por externo</mat-checkbox>
+  <button mat-button type="submit">Buscar</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Sexo</th>
+        <th>Es interno</th>
+        <th>Es externo</th>
+        <th>Fecha</th>
+        <th>ID Facultad</th>
+        <th>ID Carrera</th>
+        <th>Hora</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of filteredData">
+        <td>{{ item.ID }}</td>
+        <td>{{ item.nombre }}</td>
+        <td>{{ item.sexo }}</td>
+        <td>{{ item.esInterno }}</td>
+        <td>{{ item.esExterno }}</td>
+        <td>{{ item.fecha | date }}</td>
+        <td>{{ item.idFacultad }}</td>
+        <td>{{ item.idCarrera }}</td>
+        <td>{{ item.hora }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>

@@ -1,0 +1,51 @@
+<app-nav-bar></app-nav-bar>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página no encontrada</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+
+    }
+
+    .error-container {
+      margin: 200px auto;
+      padding: 20px;
+      max-width: 400px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 0 5px #999;
+    }
+
+    h1 {
+      color: #f00;
+      animation: fadeIn 2s ease-in-out infinite;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        font-size: 30px;
+      }
+
+      to {
+        opacity: 1;
+        font-size: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="error-container">
+    <h1>Error 404</h1>
+    <p>Lo sentimos, la página que estás buscando no se encuentra disponible.</p>
+    <p><a href="/">Volver a la página de inicio</a></p>
+  </div>
+</body>
+</html>

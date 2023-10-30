@@ -1,0 +1,28 @@
+.formulario {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.barra{
+    display:block;
+}
+
+.barra table{
+    margin-top: 5%;
+}
+
+.barra button{
+    margin-left: 10%;
+    background-color: #164686;
+    color: #fff;
+    width: 200px;
+}
+
+
+.formulario button{
+    margin-left: 10%;
+    background-color: #164686;
+    color: #fff;
+    
+}

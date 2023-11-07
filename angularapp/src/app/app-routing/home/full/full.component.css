@@ -1,25 +1,48 @@
 /* Estilos para el Sidebar */
 .app-sidebar {
-  background-color: #e0e0e0; /* Color de fondo del sidebar */
-  padding: 16px; /* Espaciado interno del sidebar */
-  border-right: 1px solid #ccc; /* Borde a la derecha del sidebar */
+  background-color: #333; /* Cambia el color de fondo del sidebar */
+  color: #fff; /* Cambia el color del texto en el sidebar */
+  width: auto; /* Ancho automático del Sidebar cuando está visible */
+  min-width: 400px; /* Ancho mínimo del Sidebar cuando está visible */
+  transition: min-width 0.3s ease-in-out; /* Agrega una transición suave al ancho mínimo del Sidebar */
+  position: fixed; /* Fija el Sidebar en su posición */
+  top: 0; /* Alinea la parte superior del Sidebar con la parte superior de la ventana */
+  bottom: 0; /* Alinea la parte inferior del Sidebar con la parte inferior de la ventana */
+  z-index: 1; /* Asegura que el Sidebar esté por encima del contenido principal */
 }
 
 /* Estilos para el Header */
 .app-header {
-  background-color: #007bff; /* Color de fondo del header */
-  color: white; /* Color de texto del header */
-  padding: 16px; /* Espaciado interno del header */
+  background-color: #007bff; /* Cambia el color de fondo del header */
+  color: #fff; /* Cambia el color del texto en el header */
+  padding: 10px;
+  text-align: center;
 }
 
-/* Estilos para el Router Outlet (Área principal de contenido) */
-.router-outlet {
-  background-color: #f0f0f0; /* Color de fondo del área principal de contenido */
-  padding: 16px; /* Espaciado interno del área principal de contenido */
-  margin-top: 10px; /* Margen superior para separar del header */
-} 
+/* Estilo para que el contenido principal ocupe toda la pantalla */
+.container-fluid {
+  display: flex;
+}
 
-/* Todos los divs dentro de fluid-container tendrán un margen inferior de 10px */
-.fluid-container div {
-  margin-bottom: 10px;
+/* Estilo para que el Sidebar esté siempre visible */
+.app-sidebar.hidden {
+  min-width: 0; /* Establece el ancho mínimo a 0 para ocultar el Sidebar */
+}
+.col-12 {
+  flex: 1; /* Hace que el contenido ocupe todo el espacio disponible */
+  transition: margin-left 0.3s ease-in-out; /* Agrega una transición suave al margen izquierdo */
+  margin-left: 0; /* Establece el margen izquierdo en 0 cuando el Sidebar está visible */
+}
+
+/* Estilo para que el contenido principal ocupe toda la pantalla */
+.container {
+  display: flex;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+mat-sidenav-container {
+  flex: 1; /* Hace que el contenido principal ocupe todo el espacio disponible */
+  /* Ajusta otros estilos según sea necesario */
 }

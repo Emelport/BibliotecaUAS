@@ -4,22 +4,13 @@ import { Component } from '@angular/core';
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
-})
+})  
 export class SidebarComponent {
-  isSidebarVisible = true; // La barra lateral está inicialmente visible
-  showSubMenuName: string | null = null;
+  isSidebarVisible: boolean = false;
 
   toggleSidebar() {
-    this.isSidebarVisible = !this.isSidebarVisible; // Alternar el estado
+    this.isSidebarVisible = !this.isSidebarVisible;
+    
   }
-
-  showSubMenu(option: string) {
-    this.showSubMenuName = option;
-  }
-  
-  hideSubMenu() {
-    this.showSubMenuName = null;
-  }
-
-  
 }
+

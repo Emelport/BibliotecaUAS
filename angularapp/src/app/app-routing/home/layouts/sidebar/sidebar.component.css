@@ -3,16 +3,13 @@
   display: flex;
   background: #f0f0f0;
   height: 100vh;
-  overflow: hidden;
   padding: 0;
-  
 }
 
 .sidebar {
-  width: 240px;
+  width: 10%;
   transition: width 0.3s;
   padding: 10px;
-  overflow-x: hidden;
   display: flex;
   flex-direction: column;
 }
@@ -37,16 +34,15 @@
 }
 
 .logo-img {
-  width: 48px;
-  height: 48px;
+  width: 64px;
+  height: 80px;
   margin-right: 10px;
-
 }
 
-  .logo-img:hover {
-    transform: scale(1.05);
-    border-radius: 20px 20px 20px 20px;
-  }
+.logo-img:hover {
+  transform: scale(1.05);
+  border-radius: 20px 20px 20px 20px;
+}
 
 .logo-and-title a:hover {
   transform: scale(1.05);
@@ -96,26 +92,8 @@
 /* Estilo para el botón de ocultar/mostrar */
 .hide-button {
   cursor: pointer;
-  background: none;
-  border: none;
-  outline: none;
-  padding: 0;
   position: absolute;
-  top: 10px;
-  right: -40px;
 }
-
-  /* Estilo para el ícono del botón de ocultar/mostrar */
-  .hide-button i {
-    color: #164686;
-    font-size: 20px;
-    transition: transform 0.2s;
-  }
-
-  /* Cambia la rotación y el tamaño del ícono al pasar el mouse en el botón de ocultar/mostrar */
-  .hide-button:hover i {
-    transform: rotate(180deg) scale(1.2);
-  }
 
 .custom-button {
   background: none;
@@ -139,7 +117,5 @@
 
   .mat-sidenav{
     /* dale 20 px mas de espacio por todos los lados*/
-    padding: 20px;
-
-    
+    padding: 10px;
   }

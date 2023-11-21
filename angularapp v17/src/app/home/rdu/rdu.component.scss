@@ -1,17 +1,35 @@
 /* Estilos generales */
 .container {
-    max-width: 800px; /* Ajusta el ancho máximo según tus preferencias */
+    max-width: 1000px; /* Ajusta el ancho máximo según tus preferencias */
+    max-height: 880px;
+    overflow: scroll;
     margin: auto;
     border: 1px solid #ccc;  
     padding: 20px;
     border-radius: 10px;
     /*Efecto de sombra*/
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-
     // fuente roboto negrita
     font-family: Roboto, serif;
     font-weight: bold;
 }
+//Desaparecer el scroll
+.container::-webkit-scrollbar {
+    width: 10px; /* Ancho de la barra de desplazamiento */
+  }
+  
+  .container::-webkit-scrollbar-thumb {
+    background-color: #a19f9f; /* Color del pulgar de la barra de desplazamiento */
+    border-radius: 10px; /* Bordes redondeados del pulgar */
+  }
+  
+  .container::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Color de fondo de la barra de desplazamiento */
+  }
+  
+  .container::-webkit-scrollbar-thumb:hover {
+    background-color: #6b6b6b; /* Color del pulgar de la barra de desplazamiento al pasar el mouse */
+  }
   
   /* Estilo para los botones en el grupo de botones */
   .btn-group {

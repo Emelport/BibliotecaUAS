@@ -4,6 +4,10 @@ import { MaterialModule } from '../../../material.module';
 import { FormBuilder, FormsModule,FormGroup, ReactiveFormsModule} from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+//File saver y convertidor excel
+import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
+
 
 @Component({
   selector: 'app-rdu',
@@ -13,7 +17,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   styleUrl: './rdu.component.scss'
 })
 
-export class RduComponent implements OnInit  {
+export class RduComponent implements OnInit {
+
   capturasForm: FormGroup;
   consultaForm: FormGroup;
   view: string = 'capturar';
@@ -30,26 +35,26 @@ export class RduComponent implements OnInit  {
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient
+    private http: HttpClient,
+    
+
     ) {
     this.capturasForm = this.formBuilder.group({
-      ID: '',
+      id: '',
       nombre: '',
       sexo: '',
-      esInterno: false,
-      esExterno: false,
-      fecha: new Date(),
-      idFacultad: '',
-      idCarrera: '',
-      hora: '',
+      tipoUsuario: '',	
+      fechayhora: new Date(),
+      id_facultad: '',
+      id_carrera: '',
     });
     this.consultaForm = this.formBuilder.group({
       fechaInicio: new Date(),
       fechaFin: new Date(),
-      idFacultad: '',
-      idCarrera: '',
-      esInterno: false,
-      esExterno: false,
+      sexo: '',
+      id_facultad: '',
+      id_carrera: '',
+      tipoUsuario: '',
     });
   }
 
@@ -59,66 +64,49 @@ export class RduComponent implements OnInit  {
   }
 
   submitForm() {
-    if (!this.capturasForm.valid) {
-      return;
-    }
+    const data = this.capturasForm.value;
+    console.log(data);
 
-    // Aquí puedes guardar los datos en tu backend o donde necesites
-    const formData = this.capturasForm.value;
-    this.data.push(formData);
-    this.filteredData.push(formData);
-
-    // Reiniciar formulario
-    this.capturasForm.reset();
-    this.capturasForm.patchValue({ fecha: new Date() });
-  }
-
-  applyFilters() {
-    const filters = this.capturasForm.value;
-    const rangeFromDate = filters.fecha ? filters.fecha[0] : null;
-    const rangeToDate = filters.fecha ? filters.fecha[1] : null;
-
-    // Aplicar filtros
-    this.filteredData = this.data.filter(item => {
-      let valid = true;
-
-      if (filters.ID && !item.ID.includes(filters.ID)) {
-        valid = false;
-      }
-
-      if (filters.nombre && !item.nombre.includes(filters.nombre)) {
-        valid = false;
-      }
-
-      if (filters.idFacultad && !item.idFacultad.includes(filters.idFacultad)) {
-        valid = false;
-      }
-
-      if (filters.idCarrera && !item.idCarrera.includes(filters.idCarrera)) {
-        valid = false;
-      }
-
-      if (rangeFromDate && rangeToDate) {
-        const date = new Date(item.fecha);
-        const rangeFrom = new Date(rangeFromDate);
-        const rangeTo = new Date(rangeToDate);
-
-        if (date < rangeFrom || date > rangeTo) {
-          valid = false;
-        }
-      }
-
-      if (filters.esInterno && !item.esInterno) {
-        valid = false;
-      }
-
-      if (filters.esExterno && !item.esExterno) {
-        valid = false;
-      }
-
-      return valid;
+    this.http.post('http://127.0.0.1:8000/gestion/rdus/', data).subscribe((res: any) => {	
+      console.log(res);
     });
+    
   }
+  applyFilters() {
+    const filters = this.consultaForm.value;
+    //console.log(filters);
+  
+    // Traer todos los datos sin aplicar filtros
+    this.http.get('http://127.0.0.1:8000/gestion/rdus/').subscribe((res: any) => {
+      this.filteredData = res;
+
+      this.filteredData.forEach((item: any) => {
+        item.id_carrera = this.carreras.find((carrera: any) => carrera.id === item.id_carrera).nombre;
+        item.id_facultad = this.facultades.find((facultad: any) => facultad.id === item.id_facultad).nombre;
+      });
+      //aplicar un pipe para filtrar por fecha, sexo, facultad, carrera y tipo de usuario
+
+      console.log(this.filteredData);
+
+  
+      });
+  }
+  
+  
+  exportarExcel() {
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.filteredData);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Hoja1');
+    const excelBuffer: any = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    this.guardarArchivo(excelBuffer, 'datos');
+  }
+
+  private guardarArchivo(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + '.xlsx');
+  }
+      
+  
 
   ngOnInit(): void {
     this.updateTime();

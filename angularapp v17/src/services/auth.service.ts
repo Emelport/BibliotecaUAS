@@ -22,11 +22,10 @@ export class AuthService {
 
   }
 
-  login(id: number, username: string) {
+  login(usuario: string) {
     this.isLoggedIn = true;
     localStorage.setItem('isLoggedIn', 'true');
-    localStorage.setItem('username', username);
-    localStorage.setItem('id', id.toString());
+    localStorage.setItem('username', usuario);
     console.log('login');
   }
 

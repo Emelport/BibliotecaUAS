@@ -3,6 +3,7 @@ import { LoginComponent } from './login/login.component';
 import { FullComponent } from '../app/home/full/full.component';
 import { WelcomeComponent } from '../app/home/welcome/welcome.component';
 import { RduComponent } from '../app/home/rdu/rdu.component';
+import { CatalogosComponent } from './home/catalogos/catalogos.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -14,6 +15,7 @@ export const routes: Routes = [
             { path: '', redirectTo: 'welcome', pathMatch: 'full' }, // Redirigir de 'home' a 'home/welcome'
             { path: 'welcome', component: WelcomeComponent }, // Agregar una ruta para 'home/welcome'
             { path: 'rdu', component: RduComponent },
+            { path: 'catalogos', component: CatalogosComponent },
             // Si no esta logeado redirigir a login
             { path: '**', redirectTo: 'login' }
 

@@ -34,16 +34,15 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    const credentials = { username: this.username.toLowerCase(), password: this.password };
+    const credentials = { usuario: this.username.toLowerCase(), password: this.password };
     const service = new AuthService();
 
-    console.log(credentials);
-
+  
     this.loginService.login(credentials).subscribe((user: IUsuario) => {
       // Si la autenticación es exitosa, redirige al usuario a la página "/home"
       this.router.navigate(['/home']);
       //usa el servicio de autenticación para establecer el estado de inicio de sesión del usuario en true
-      service.login(user.id, user.usuario);
+      service.login(user.nombreCompleto);
     }, error => {
       // Manejo de errores en caso de autenticación fallida
       console.error('Error en el inicio de sesión:', error);
@@ -57,7 +56,8 @@ export class LoginComponent {
     this.loginService.register(credentials).subscribe((user: IUsuario) => {
       // Si la autenticación es exitosa, redirige al usuario a la página "/home"
       this.router.navigate(['/home']);
-      service.login(user.id, user.usuario);
+      service.login(user.nombreCompleto);
+    
     });
   }
 }

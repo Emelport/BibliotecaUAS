@@ -1,7 +1,7 @@
 /* Estilos generales */
 .container {
   display: flex;
-  background: #f0f0f0;
+  background: #164686;
   height: 100vh;
   padding: 0;
 /*roboto*/
@@ -63,6 +63,9 @@
 
 /* Menús */
 .nav-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -73,7 +76,7 @@
 }
 
 .nav-list li {
-margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .nav-list li a {
@@ -126,9 +129,10 @@ margin-bottom: 20px;
   .mat-sidenav{
     /* dale 20 px mas de espacio por todos los lados*/
     padding: 10px;
+    max-width: 20vw;
   }
 
   .sidebar-toggle-button{
-    min-width: 50px;
     color: #fff;
   }
+

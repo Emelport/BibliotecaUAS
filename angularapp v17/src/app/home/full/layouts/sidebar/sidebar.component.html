@@ -23,14 +23,24 @@
               <span *ngIf="isSidebarVisible">Prestamos</span>
             </a>
           </li>
+                <!-- Facultades  y Carreras -->
+            <li>
+                <a href="/home/catalogos" routerLinkActive="active">
+                    <img src="../../../assets/icono_capturas.png" alt="Icono Catálogos" class="icon">
+                    <span *ngIf="isSidebarVisible">Catalogos (Facultades,Carreras,etc)</span>
+                </a>
+            </li> 
         </ul>
-      </mat-sidenav>
+
+   
+
+    </mat-sidenav>
   
-     <!-- Botón de menú hamburguesa -->
-     <button mat-icon-button class="sidebar-toggle-button" (click)="toggleSidebar()">
-      <mat-icon *ngIf="isSidebarVisible">menu</mat-icon>
-      <mat-icon *ngIf="!isSidebarVisible">menu</mat-icon>
-    </button>
   </mat-sidenav-container>
+      <!-- Botón de menú hamburguesa -->
+      <button mat-icon-button class="sidebar-toggle-button" (click)="toggleSidebar()">
+        <mat-icon *ngIf="isSidebarVisible">menu</mat-icon>
+        <mat-icon *ngIf="!isSidebarVisible">menu</mat-icon>
+      </button>
   </div>
   

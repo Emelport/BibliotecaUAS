@@ -8,14 +8,14 @@ import { IUsuario } from '../interfaces/interfaces'; // Asegúrate de importar l
 })
 
 export class LoginService {
-  private loginUrl = 'http://http://127.0.0.1:8000/gestion/usuarios/validar_usuario/'; // Asegúrate de que esta sea la ruta correcta de tu API
+  private loginUrl = 'http://127.0.0.1:8000/gestion/usuarios/validar_usuario/'; // Asegúrate de que esta sea la ruta correcta de tu API
   private registerUrl = 'http://127.0.0.1:8000/gestion/usuarios/';
 
   constructor(private http: HttpClient) { 
     this.http = http;
   }
 
-  login(credentials: { username: string, password: string }): Observable<IUsuario> {
+  login(credentials: { usuario: string, password: string }): Observable<IUsuario> {
     return this.http.post<IUsuario>(this.loginUrl, credentials);
   }
 

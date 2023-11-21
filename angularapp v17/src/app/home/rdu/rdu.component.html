@@ -1,0 +1,142 @@
+
+<div class="container mt-4">
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary" (click)="toggleView('capturar')">Capturar</button>
+      <button type="button" class="btn btn-primary" (click)="toggleView('consultas')">Consultas</button>
+    </div>
+  
+    <div *ngIf="view === 'capturar'" class="mt-4">
+        <div class="time-container">
+            <p class="date">{{ currentTime | date:'mediumDate' }}</p>
+            <p class="time">{{ currentTime | date:'mediumTime' }}</p>
+        </div>
+      <form [formGroup]="capturasForm" (ngSubmit)="submitForm()" class="formulario">
+  
+        <div class="mb-3">
+          <label for="nombre" class="form-label">NOMBRE</label>
+          <input type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Nombre">
+        </div>
+  
+
+        <div class="checks">
+            <div class="mb-3">
+                <label for="sexo" class="form-label">SEXO</label>
+                <select class="form-select" id="sexo" formControlName="sexo">
+                  <option value="MASCULINO">MASCULINO</option>
+                  <option value="FEMENINO">FEMENINO</option>
+                </select>
+              </div>
+            <div class="mb- form-check">
+                <input type="checkbox" class="form-check-input" id="esInterno" value="INTERNO" formControlName="esInterno">
+                <label class="form-check-label" for="esInterno">ES INTERNO</label>
+              </div>
+        
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="esExterno" formControlName="esExterno">
+                <label class="form-check-label" for="esExterno">ES EXTERNO</label>
+              </div>
+        </div>
+
+        <div class="facultad-carrera">
+            <!-- Combo Box con las carreras y facultades seleccionables -->
+            <div class="mb-3">
+                <label for="facultad" class="form-label">FACULTAD</label>
+                <select class="form-select" id="facultad" formControlName="idFacultad">
+                    @for (facultad of facultades; track facultades) {
+                        <option value="facultad{{facultad.id}}">{{facultad.nombre}}</option>
+                    }
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label for="carrera" class="form-label">CARRERA</label>
+                <select class="form-select" id="carrera" formControlName="idCarrera">
+                    @for (carrera of carreras; track carreras) {
+                        <option value="carrera{{carrera.id}}">{{carrera.nombre}}</option>
+                    }
+                </select>
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </form>
+    </div>
+  
+    @if (view === 'consultas') {
+        <div class="container mt-3">
+            <form [formGroup]="consultaForm" class="filtros">
+              <!-- rango de fechas, por sexo, por facultad, por carrera, interno o externo  -->
+                <div class="mb-3">
+                    <label for="fechaInicio" class="form-label">Fecha inicio</label>
+                    <input type="date" class="form-control" id="fechaInicio"  name="fechaInicio">
+                </div>
+                <div class="mb-3">
+                    <label for="fechaFin" class="form-label">Fecha fin</label>
+                    <input type="date" class="form-control" id="fechaFin" name="fechaFin">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="sexo" class="form-label">SEXO</label>
+                    <select class="form-select" id="sexo" name="sexo">
+                      <option value="MASCULINO">MASCULINO</option>
+                      <option value="FEMENINO">FEMENINO</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="facultad" class="form-label">FACULTAD</label>
+                    <select class="form-select" id="facultad" name="facultad">
+                        @for (facultad of facultades; track facultades) {
+                            <option value="facultad{{facultad.id}}">{{facultad.nombre}}</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="carrera" class="form-label">CARRERA</label>
+                    <select class="form-select" id="carrera" name="carerra">
+                        @for (carrera of carreras; track carreras) {
+                            <option value="carrera{{carrera.id}}">{{carrera.nombre}}</option>
+                        }
+                    </select>
+                </div>
+
+
+            </form>
+            <button type="button" class="btn btn-primary" (click)="applyFilters()">Buscar</button>
+            <!-- Tabla de resultados -->
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Sexo</th>
+                  <th>Es interno</th>
+                  <th>Es externo</th>
+                  <th>Fecha</th>
+                  <th>Facultad</th>
+                  <th>Carrera</th>
+                  <th>Hora</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of filteredData">
+                  <td>{{ item.ID }}</td>
+                  <td>{{ item.nombre }}</td>
+                  <td>{{ item.sexo }}</td>
+                  <td>{{ item.esInterno }}</td>
+                  <td>{{ item.esExterno }}</td>
+                  <td>{{ item.fecha | date }}</td>
+                  <td>{{ item.idFacultad }}</td>
+                  <td>{{ item.idCarrera }}</td>
+                  <td>{{ item.fecha | date:'mediumTime' }}</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+          
+    }
+
+  </div>
+  

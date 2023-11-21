@@ -1,0 +1,134 @@
+/* Estilos generales */
+.container {
+  display: flex;
+  background: #f0f0f0;
+  height: 100vh;
+  padding: 0;
+/*roboto*/
+  font-family: Roboto, serif;
+}
+
+.sidebar {
+  width: 10%;
+  transition: width 0.3s;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+  .sidebar.hidden {
+    width: 60px;
+  }
+
+/* Logo y título */
+.logo-and-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  background: #1C6FB6; /* Color de fondo amarillo solo para el área del logo */
+  padding: 10px; /* Agregado espacio interno para el logo y título */
+  border-radius: 10px 10px 10px 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  /* letras blancas */
+  color: #FFFFFF;
+  text-decoration: none;
+  /*espaciado entre letras*/
+    letter-spacing: 5px;
+
+}
+
+.logo-img {
+  width: 64px;
+  height: 80px;
+  margin-right: 10px;
+}
+
+.logo-img:hover {
+  transform: scale(1.05);
+  border-radius: 20px 20px 20px 20px;
+}
+
+.logo-and-title a:hover {
+  transform: scale(1.05);
+}
+
+.title span {
+  font-weight: bold;
+  color: #000;
+  font-size: 18px;
+  font-family: Roboto, serif;
+  color: #FFFFFF;
+}
+
+/* Menús */
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+    /*todos los textos en mayusculas*/
+    text-transform: uppercase;
+    /*blanco*/
+    color: #FFFFFF;
+}
+
+.nav-list li {
+margin-bottom: 20px;
+}
+
+.nav-list li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+}
+
+/* Cambia el fondo al pasar el mouse en los menús */
+.nav-list li a:hover {
+  background-color: #164686;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* Estilo para el botón de ocultar/mostrar */
+.hide-button {
+  cursor: pointer;
+  position: absolute;
+}
+
+.custom-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+  .custom-button mat-icon {
+    font-size: 24px;
+    
+  }
+
+  .custom-button:hover mat-icon {
+    transform: scale(1.2);
+  }
+
+  .mat-sidenav{
+    /* dale 20 px mas de espacio por todos los lados*/
+    padding: 10px;
+  }
+
+  .sidebar-toggle-button{
+    min-width: 50px;
+    color: #fff;
+  }

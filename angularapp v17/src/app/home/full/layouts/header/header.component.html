@@ -1,0 +1,14 @@
+<div class="header">
+    <div class="user-profile" [matMenuTriggerFor]="userMenu">
+      <div class="user-box">
+        <img src="../../../../../assets/default_user.png" alt="Foto de perfil" class="profile-image">
+        <span class="user-name">{{username.toUpperCase()}}</span>
+        <i class="fas fa-caret-down"></i>
+      </div>
+    </div>
+    <mat-menu #userMenu="matMenu" class="custom-menu">
+      <button mat-menu-item (click)="openSettings()">Configuración</button>
+      <button mat-menu-item (click)="logout()">Cerrar Sesión</button>
+    </mat-menu>
+  </div>
+  

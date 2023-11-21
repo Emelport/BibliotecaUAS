@@ -1,0 +1,36 @@
+
+<div class="container">
+    <mat-sidenav-container class="sidebar-container" style="background-color: #164686;">
+      <mat-sidenav #sidenav mode="side" [opened]="isSidebarVisible">
+        <a class="logo-and-title" routerLink="/home" routerLinkActive="active">
+          <div class="logo">
+            <img src="../../../assets/aguila.png" alt="logo" class="logo-img">
+          </div>
+          <div class="title">
+            <span  class="display-4">BIBLIOTECA</span>
+          </div>
+        </a>
+        <ul class="nav-list">
+          <li>
+            <a href="/home/rdu" routerLinkActive="active">
+              <img src="../../../assets/icono_catalogos.png" alt="Icono Catálogos" class="icon">
+              <span *ngIf="isSidebarVisible">Reporte de Usuarios (RDU)</span>
+            </a>
+          </li>
+          <li>
+            <a href="/home/welcome" routerLinkActive="active">
+              <img src="../../../assets/icono_consultas.png" alt="Icono Catálogos" class="icon">
+              <span *ngIf="isSidebarVisible">Prestamos</span>
+            </a>
+          </li>
+        </ul>
+      </mat-sidenav>
+  
+     <!-- Botón de menú hamburguesa -->
+     <button mat-icon-button class="sidebar-toggle-button" (click)="toggleSidebar()">
+      <mat-icon *ngIf="isSidebarVisible">menu</mat-icon>
+      <mat-icon *ngIf="!isSidebarVisible">menu</mat-icon>
+    </button>
+  </mat-sidenav-container>
+  </div>
+  

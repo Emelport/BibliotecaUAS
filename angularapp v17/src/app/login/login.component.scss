@@ -1,0 +1,70 @@
+/* Agrega estilos personalizados aquí si es necesario */
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 72vh;
+  }
+  
+  .card {
+    max-width: 200px;
+    margin: 0;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .logo-img {
+    max-width: 40px;
+    margin-right: 10px;
+  }
+  
+  .logo-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .login-form {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  /* Estilos para campos requeridos */
+  .form-label {
+    font-weight: bold;
+  }
+  
+  .btn-primary {
+    margin-top: 20px;
+  }
+  
+  /* Agrega estilos personalizados aquí si es necesario */
+.card-body {
+    margin: 0px;    
+    padding-left: 0px;
+}
+
+.form-label{
+    float: left;
+}
+
+.text-center{
+    margin-top: 10;
+}
+
+.nav-link:hover{
+   /*azul del header*/
+   background-color: rgb(33, 67, 105);
+    color: #fff;
+}
+
+.form-control{
+    border-radius: 5px;
+    border: 1px solid rgb(33, 67, 105);
+}

@@ -1,0 +1,115 @@
+.header-superior {
+	background-color: #b89d2b;
+}
+
+.header-inferior {
+	background: rgb(0, 59, 126);
+	background: linear-gradient(90deg, rgba(0, 59, 126, 1) 0%, rgba(27, 104, 171, 1) 48%, rgba(29, 112, 184, 1) 100%);
+}
+
+.header-logo-uas {
+	padding: 0px;
+	margin: 0px;
+}
+
+.header-logo-consolidacion {
+	padding: 0px;
+	margin: 0px;
+}
+
+.header-titulo-superior {
+	text-align: left;
+	color: #fff;
+	font-family: "Roboto Condensed", Sans-serif;
+}
+
+.header-titulo-inferior {
+	color: #fff;
+	font-family: "Roboto", Sans-serif;
+	font-weight: normal;
+	text-transform: uppercase;
+}
+
+.header-fondo-menu {
+	height: 10px;
+	background-color: #003b8e;
+	padding: 0 0 0 0;
+}
+
+.header-btn-login {
+	position: absolute;
+	top: 80px;
+	right: 10px;
+	background-color: #FDC800;;
+}
+
+	.header-fondo-menu {
+		height: 20px;
+		background-color: #AF8514;
+		padding: 0 0 0 0;
+	}
+	.header-superior {
+		height: 135.42px;
+		background: rgb(33,105,172);
+		background: linear-gradient(90deg, rgba(33,105,172,1) 0%, rgba(22,70,134,1) 56%, rgba(22,70,134,1) 100%);
+    }
+	.header-inferior {
+		height: 30px;
+		background: rgb(0,59,126);
+		background: linear-gradient(90deg, rgba(0,59,126,1) 0%, rgba(27,104,171,1) 48%, rgba(29,112,184,1) 100%);
+        text-align: center;
+    }
+	.header-logo-uas {
+        background-color: #fff;
+        transform: skew(-10deg);   
+        margin-left: 1rem; 
+        float: left; 
+        max-height: 165.42px;
+
+    }
+
+	.header-logo-consolidacion {
+        background-color: #fff;
+        transform: skew(-20deg);  
+        margin: 0px;
+        padding: 0px;
+        float: right;
+        max-height: 135.42px;
+	}
+    
+    /*Arreglar las imagen para que no se tuerzan*/
+    .header-logo-uas img {
+        /*usar el tamaño del contenedor*/
+        width: 150px;
+        height: 165px;
+        margin: 0px;
+        padding: 0px;
+        transform: skew(10deg);
+        scale: .85;
+    }
+
+    .header-logo-consolidacion img {
+        margin: 0px;
+        padding: 0px; 
+        width: auto;
+        height: 135.42px;
+        transform: skew(20deg);
+        scale: .8;
+    }
+
+
+	.header-titulo-superior {
+        padding-top: 3rem;
+		font-size: 50px;
+        text-align: center;
+        
+	}
+	.header-titulo-superior small {
+		font-size: 22px;
+	}
+	.header-titulo-inferior {
+		letter-spacing: 20px;
+		font-size: 25px;
+        padding-top: 0;
+	}
+

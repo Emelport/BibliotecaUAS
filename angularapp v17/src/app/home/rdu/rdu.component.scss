@@ -1,0 +1,81 @@
+/* Estilos generales */
+.container {
+    max-width: 800px; /* Ajusta el ancho máximo según tus preferencias */
+    margin: auto;
+    border: 1px solid #ccc;  
+    padding: 20px;
+    border-radius: 10px;
+    /*Efecto de sombra*/
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+    // fuente roboto negrita
+    font-family: Roboto, serif;
+    font-weight: bold;
+}
+  
+  /* Estilo para los botones en el grupo de botones */
+  .btn-group {
+    margin-bottom: 20px;
+  }
+  
+  /* Estilo para el formulario */
+  .formulario {
+    margin-top: 20px;
+  }
+  
+  /* Estilo para la barra de consultas */
+  .barra {
+    margin-top: 20px;
+  }
+  
+  /* Estilo para la tabla de consultas */
+  .table {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  /* Añade estilos adicionales según sea necesario */
+  /* full.component.css */
+
+.time-container {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .time {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .facultad-carrera{
+    //  misma altura con la mitad del ancho cada elemento
+    display: flex;
+  }
+
+  .checks input[type="checkbox"]{
+    padding: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+
+  .checks{
+    display: flex;
+  }
+
+  .form-check{
+    padding-right: 10px;
+    margin-top: 4vh;
+  }
+
+  .form-check-label{
+    padding-top: .5vh;
+
+  }
+
+  .filtros{
+    display: flex;
+    justify-content: space-between;
+  }

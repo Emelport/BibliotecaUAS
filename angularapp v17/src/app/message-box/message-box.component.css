@@ -1,0 +1,103 @@
+.message-box-card {
+  max-width: 400px;
+  margin: 0 auto;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  background-color: #fff; /* Fondo blanco */
+  align-items: center;
+}
+
+.message-icon {
+  display: inline-block;
+  margin-right: 16px;
+}
+
+.message-text {
+  display: inline-block;
+}
+
+
+.message-title.info-title {
+
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #007bff; /* Azul para info */
+}
+
+.message-title.warning-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #bea42a; /* Amarillo para warning */
+}
+
+.message-title.error-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #ff0000; /* Rojo para error */
+}
+
+.message-content.info-content {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  padding: 20px;
+  color: #007bff; /* Azul para info */
+  font-weight: bold;
+}
+
+.message-content.warning-content {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  padding: 20px;
+  color: #bea42a; /* Amarillo para warning */
+  font-weight: bold;
+}
+
+.message-content.error-content {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  padding: 20px;
+  color: #ff0000; /* Rojo para error */
+  font-weight: bold;
+}
+
+.message-buttons {
+  margin-top: 20px;
+}
+
+.message-label {
+  margin-top: 20px;
+}
+
+.btn-primary {
+  background-color: transparent;
+  color: #007bff; /* Azul para info por defecto */
+  border: 2px solid #007bff; /* Azul para info por defecto */
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+/* Botón para mensaje de info */
+.btn-info:hover {
+  background-color: #3498db; /* Color de fondo en hover para mensajes de info */
+  color: #fff; /* Color del texto en hover para mensajes de info */
+  border-color: #3498db; /* Color del borde en hover para mensajes de info */
+}
+
+/* Botón para mensaje de warning */
+.btn-warning:hover {
+  background-color: #f39c12; /* Color de fondo en hover para mensajes de warning */
+  color: #fff; /* Color del texto en hover para mensajes de warning */
+  border-color: #f39c12; /* Color del borde en hover para mensajes de warning */
+}
+
+/* Botón para mensaje de error */
+.btn-error:hover {
+  background-color: #e74c3c; /* Color de fondo en hover para mensajes de error */
+  color: #fff; /* Color del texto en hover para mensajes de error */
+  border-color: #e74c3c; /* Color del borde en hover para mensajes de error */
+}

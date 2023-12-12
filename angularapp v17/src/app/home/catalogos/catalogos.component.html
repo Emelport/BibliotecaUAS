@@ -27,22 +27,26 @@
                 <h2 class="fw-bold mb-5">CARRERAS</h2>
                 <!-- Combo para seleccionar Carrera -->
                 <div class="mb-3">
-                  <label for="selectedCarrera" class="form-label">Selecciona una carrera</label>
-                  <select class="form-select" id="selectedCarrera" name="selectedCarrera">
-                    @for (carrera of carreras ; track carrera.id ) {
-                      <option value="{{carrera.id}}">{{ carrera.nombre }}</option>
-                    }
-                  </select>
+                  <label for="searchCarrera" class="form-label">Buscar carrera</label>
+                  <!-- Input de búsqueda -->
+                  <input type="text" class="form-control" id="searchCarrera" name="searchCarrera" (input)="filterCarreras($event)" placeholder="Buscar carrera">
+                
+                  <!-- Lista filtrada de carreras -->
+                  <ul *ngIf="carrerasFiltradas.length > 0" class="list-group mt-2">
+                    <li class="list-group-item" *ngFor="let carrera of carrerasFiltradas">
+                     <div class="carreras" (click)="seleccionarCarrera(carrera)">{{ carrera.nombre }}</div>
+                    </li> 
+                  </ul>
                 </div>
-
+                
                 <!-- Textbox id (disabled) y nombre bootstrap-->
                 <div class="mb-3">
                   <label for="id" class="form-label">ID</label>
-                  <input type="text" class="form-control" id="id" name="id" disabled>
+                  <input type="text" class="form-control" id="id" name="id" ngModel disabled>
                 </div>
                 <div class="mb-3">
                   <label for="nombre" class="form-label">Nombre</label>
-                  <input type="text" class="form-control" id="nombre" name="nombre">
+                  <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="idCarrera">
                 </div>
 
                 <!-- Botones para añadir y eliminar carreras -->

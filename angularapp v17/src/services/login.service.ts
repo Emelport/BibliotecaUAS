@@ -19,7 +19,7 @@ export class LoginService {
     return this.http.post<IUsuario>(this.loginUrl, credentials);
   }
 
-  register(credentials: { nombreCompleto: string, usuario: string, password: string }): Observable<IUsuario> {
+  register(credentials: { nombre: string, apellidos: string, usuario: string, password: string }): Observable<IUsuario> {
     return this.http.post<IUsuario>(this.registerUrl, credentials);
   }
 }

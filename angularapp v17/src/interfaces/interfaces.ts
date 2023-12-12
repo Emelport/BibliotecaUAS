@@ -1,6 +1,7 @@
 export interface IUsuario{
   id: number;
-  nombreCompleto: string;
+  nombre: string;
+  apellidos: string;
   usuario: string;
   password: string;
 }

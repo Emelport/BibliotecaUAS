@@ -8,6 +8,7 @@ import { LoginService } from '../../services/login.service';
 import { AuthService } from '../../services/auth.service';
 import { RouterModule,Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-login',
@@ -23,10 +24,11 @@ export class LoginComponent {
   password: string = '';
   newPassword: string = '';
   email: string = '';
-  fullName: string = '';
+  nombre: string = '';
+  apellidos: string = '';
   newUsuario: string = '';
 
-  constructor(private loginService: LoginService, private router: Router) {
+  constructor(private loginService: LoginService, private router: Router, private dialogService: DialogService) {
     this.loginService = loginService;
     this.router = router;
     this.username = '';
@@ -40,24 +42,25 @@ export class LoginComponent {
   
     this.loginService.login(credentials).subscribe((user: IUsuario) => {
       // Si la autenticación es exitosa, redirige al usuario a la página "/home"
+      service.login(user.nombre);
+      console.log('Inicio de sesión exitoso',user)
       this.router.navigate(['/home']);
-      //usa el servicio de autenticación para establecer el estado de inicio de sesión del usuario en true
-      service.login(user.nombreCompleto);
     }, error => {
       // Manejo de errores en caso de autenticación fallida
       console.error('Error en el inicio de sesión:', error);
+      this.dialogService.openMessageBox('error', 'Error', error).then(() => {
+        // En caso de que el usuario haga clic en el botón "Aceptar", se limpian los campos de usuario y contraseña
+        this.password = '';
+      }); 
     });
   }
 
   onRegister() {
-    const credentials = { nombreCompleto: this.fullName.toLowerCase(),usuario: this.newUsuario.toLowerCase(),password: this.newPassword};
+
+
+    const credentials = { nombre: this.nombre.toUpperCase(),apellidos: this.apellidos.toUpperCase(),usuario: this.newUsuario.toLowerCase(),password: this.newPassword};
     const service = new AuthService();
 
-    this.loginService.register(credentials).subscribe((user: IUsuario) => {
-      // Si la autenticación es exitosa, redirige al usuario a la página "/home"
-      this.router.navigate(['/home']);
-      service.login(user.nombreCompleto);
-    
-    });
+   //consumir el api, mostrar mensaje de exito o error
   }
 }

@@ -1,0 +1,26 @@
+<mat-card class="message-box-card">
+  <mat-card-content>
+    <div class="message-icon">
+      <img *ngIf="messageType === 'info'" src="https://img.icons8.com/external-anggara-flat-anggara-putra/64/external-info-communication-anggara-flat-anggara-putra.png" alt="Info Icon" width="64" height="64" />
+      <img *ngIf="messageType === 'warning'" src="https://img.icons8.com/color/96/error--v1.png" alt="Warning Icon" width="64" height="64" />
+      <img *ngIf="messageType === 'error'" src="https://img.icons8.com/external-creatype-flat-colourcreatype/64/external-cancel-e-commerce-creatype-flat-colourcreatype.png" alt="Error Icon" width="64" height="64" />
+    </div>
+    <div class="message-text">
+      <h2 class="c text-uppercase" [ngClass]="{ 'info-title': messageType === 'info', 'warning-title': messageType === 'warning', 'error-title': messageType === 'error' }">
+        {{ messageTitle }}
+      </h2>
+    </div>
+    <p class="message-content" [ngClass]="{ 'info-content': messageType === 'info', 'warning-content': messageType === 'warning', 'error-content': messageType === 'error' }">
+      {{ messageContent }}
+    </p>
+
+    <div *ngIf="!acceptOnly" class="message-buttons text-center">
+      <button class="btn btn-primary mx-2" (click)="accept()" [ngClass]="{ 'info-button': messageType === 'info', 'warning-button': messageType === 'warning', 'error-button': messageType === 'error' }">Aceptar</button>
+      <button class="btn btn-primary mx-2" (click)="reject()" [ngClass]="{ 'info-button': messageType === 'info', 'warning-button': messageType === 'warning', 'error-button': messageType === 'error' }">Rechazar</button>
+    </div>
+
+    <div *ngIf="acceptOnly" class="message-label text-center">
+      <button class="btn btn-primary mx-2" (click)="accept()" [ngClass]="{ 'info-button': messageType === 'info', 'warning-button': messageType === 'warning', 'error-button': messageType === 'error' }">Aceptar</button>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -16,7 +16,13 @@ export class CatalogosComponent implements OnInit{
     facultades: any[] = [];  
     selectedFacultad: any;
     selectedCarrera: any;
+    idCarrera: String="";
+    nombreCarrera: String="";
+    idFacultad: String="";
+    nombreFacultad: String="";
     selectedTab: string = 'carreras';
+    carrerasFiltradas: any[] = [];
+    facultaesFiltradas: any[] = [];
 
     constructor(private http: HttpClient) { }
 
@@ -40,6 +46,12 @@ export class CatalogosComponent implements OnInit{
     
     }
 
+
+    filterCarreras(event: any): void {
+        const searchTerm = event.target.value.toLowerCase();
+        this.carrerasFiltradas = this.carreras.filter(carrera => carrera.nombre.toLowerCase().includes(searchTerm));
+    }
+
     agregarFacultad(){
     }
 
@@ -59,8 +71,10 @@ export class CatalogosComponent implements OnInit{
         this.selectedTab = vista;
     }
 
-    seleccionarCarrera(nombre: string){
-        
-
+    seleccionarCarrera(carrera: any){
+        console.log("CARRERA SELECCIONADA",carrera);
+        this.selectedCarrera = carrera;
+        this.idCarrera = carrera.id;
+        this.nombreCarrera = carrera.nombre;
     }
 }

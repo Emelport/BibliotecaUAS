@@ -31,6 +31,9 @@ export class RduComponent implements OnInit {
   currentDate = new Date();
   filteredData: any[] = [...this.data];
 
+  fecha_inicio_reporte= this.formatoFecha(new Date());
+  fecha_fin_reporte= this.formatoFecha(new Date());
+
   //Arreglo con las carreras y otro para facultades vacios
   carreras: any[] = [];
   facultades: any[] = [];
@@ -105,7 +108,7 @@ export class RduComponent implements OnInit {
       this.dialogService.openMessageBox('info', 'Registro exitoso', 'Tu registro y visita fue exitoso, favor de insertar la matricula las proximas visitas.');
     }, (error: any) => {
       console.log(error);
-      this.dialogService.openMessageBox('error', 'Error', 'No se ha podido registrar la captura.');
+      this.dialogService.openMessageBox('error', 'Error', 'No se ha podido registrar la captura, puede que ya exista un registro con esa matricula.');
       return;
     });
 
@@ -150,10 +153,16 @@ export class RduComponent implements OnInit {
         fechayhora: new Date(),
       });
 
+    
+
+    }, (error: any) => {
+      console.log(error);
+      this.dialogService.openMessageBox('error', 'Error', 'No se ha podido obtener la información de la matricula o no existe.');
+      return;
     });  
 
-
-
+    
+    
     // Preguntar si la información es correcta si el resultado es "accept" proceder
     this.dialogService.openMessageBox('warning', 'Información', '¿Eres tu?').then((result) => {
     
@@ -209,13 +218,13 @@ export class RduComponent implements OnInit {
     if (filters.tipoUsuario === '') {
       id_tipo_usuario = null;
     }else{
-      url = url + '?id_tipo_usuario=' + id_tipo_usuario;
+      url = url + '&id_tipo_usuario=' + id_tipo_usuario;
     }
     
     if (filters.id_carrera === '') {
       id_carrera = null;
     }else{
-      url = url + '?id_carrera=' + id_carrera;
+      url = url + '&id_carrera=' + id_carrera;
     }
 
     //SEXOS
@@ -231,7 +240,7 @@ export class RduComponent implements OnInit {
       masculinos = false;
     }
 
-    url = url + '?masculinos=' + masculinos + '&femeninos=' + femeninos;
+    url = url + '&masculinos=' + masculinos + '&femeninos=' + femeninos;
 
 
     console.log("Fecha Inicio:",fechaInicio,"Fecha Fin:",fechaFin,"Masculinos:",masculinos,"Femeninos:",femeninos,"Tipo Usuario:",id_tipo_usuario,"Carrera:",id_carrera);
@@ -248,8 +257,15 @@ export class RduComponent implements OnInit {
   }
 
   CONCENTRADO_RDU() {
-    //abrir nueva pestaña con el reporte
-    window.open('http://127.0.0.1:8000/gestion/visitias/generarReporteFront', '_blank');
+
+    //Obtener fecha_inicio_reporte y fecha_fin_reporte
+    let fechaInicio = this.fecha_inicio_reporte;
+    let fechaFin = this.fecha_fin_reporte;
+
+    //armar url
+    let url = "http://127.0.0.1:8000/gestion/visitias/generarReporteFront/?fecha_inicio=" + fechaInicio + "&fecha_fin=" + fechaFin;
+    //abrir nueva pestaña con el reporte  
+    window.open(url, '_blank');
   }
 
 

@@ -177,6 +177,17 @@
     }
 
     @if (view === 'reportes') {
+      
+      <div class="btn-group fechasReportes">
+        <div class="mb-3">
+          <label for="fechaInicio" class="form-label">Fecha inicio Reporte</label>
+          <input type="date" class="form-control" id="fechaInicio"  name="fechaInicio" [(ngModel)]="fecha_inicio_reporte">
+        </div>
+        <div class="mb-3">
+            <label for="fechaFin" class="form-label">Fecha fin Reporte</label>
+            <input type="date" class="form-control" id="fechaFin" name="fechaFin" [(ngModel)]="fecha_fin_reporte" >
+        </div>
+      </div>
 
       
       <!-- Ordenar los botones en un div, uno por cada consulta que se va aagregando hacia abajo -->

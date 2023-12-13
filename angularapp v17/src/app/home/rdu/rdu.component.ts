@@ -247,12 +247,14 @@ export class RduComponent implements OnInit {
 
     // Traer todos los datos sin aplicar filtros
     this.http.get(url).subscribe((res: any) => {
+      console.log(res);
       this.filteredData = res.registros_completos;
       //aplicar un pipe para filtrar por fecha, sexo, facultad, carrera y tipo de usuario
       console.log(this.filteredData);
       }, (error: any) => {
         console.log(error);
         this.dialogService.openMessageBox('error', 'Error', 'No se ha podido obtener los datos. Verifique los filtros ingresados.');
+        this.filteredData = [];
       });
   }
 

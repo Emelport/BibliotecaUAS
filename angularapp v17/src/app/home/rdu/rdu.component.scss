@@ -3,18 +3,18 @@
   margin-top: 10px;
 }
 .container {
-    max-width: 1000px; /* Ajusta el ancho máximo según tus preferencias */
-    max-height: 880px;
-    overflow: scroll;
-    margin: auto;
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 10px;
-    /*Efecto de sombra*/
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    // fuente roboto negrita
-    font-family: Roboto, serif;
-    font-weight: bold;
+  scale: .9;
+  max-width: 1020px; /* Ajusta el ancho máximo según tus preferencias */
+  max-height: 900px;
+  overflow: scroll;
+  margin: auto;
+  margin-top: 0px;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  font-family: Roboto, serif;
+  font-weight: bold;
 }
 //Desaparecer el scroll
 .container::-webkit-scrollbar {
@@ -41,7 +41,7 @@
 
   /* Estilo para el formulario */
   .formulario {
-    margin-top: 20px;
+    margin-top: 10px;
   }
 
   /* Estilo para la barra de consultas */

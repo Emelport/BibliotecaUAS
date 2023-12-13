@@ -167,6 +167,7 @@ export class RduComponent implements OnInit {
 
       this.http.post('http://127.0.0.1:8000/gestion/visitias/', data).subscribe((res: any) => {
         console.log(res);
+        this.capturasForm.reset();
         this.dialogService.openMessageBox('info', 'Registro exitoso', 'La visita se ha registrado correctamente.');
       }, (error: any) => {
         console.log(error);
@@ -176,7 +177,7 @@ export class RduComponent implements OnInit {
 
     //Limpiar el formulario
     this.visitaForm.reset();
-    this.capturasForm.reset();
+
 
   }
     

@@ -56,8 +56,8 @@ export class RduComponent implements OnInit {
       id_carrera: '',
     });
     this.consultaForm = this.formBuilder.group({
-      fechaInicio: new Date(),
-      fechaFin: new Date(),
+      fechaInicio: this.formatoFecha(new Date()),
+      fechaFin:  this.formatoFecha(new Date()),
       sexo: '',
       id_facultad: '',
       id_carrera: '',
@@ -180,27 +180,61 @@ export class RduComponent implements OnInit {
 
 
   }
+
+
+  formatoFecha(fecha: Date): string {
+
+   return fecha.getFullYear() + '-' + (fecha.getMonth() + 1) + '-' + fecha.getDate();
+  }
     
 
   
 
   applyFilters() {
     const filters = this.consultaForm.value;
-    //console.log(filters);
+
+    //Filtros
+    //SOLO FECHA INICIO Y FECHA FIN EN FORMATO YYYY-MM-DD
+    // Obtener la fecha actual
+    let fechaInicio = filters.fechaInicio;
+    let fechaFin = filters.fechaFin;
+    let masculinos = false;
+    let femeninos = false;
+    let id_tipo_usuario = filters.tipoUsuario;
+    let id_carrera = filters.id_carrera;
+
+    //Si no existe ponla null
+    if (filters.tipoUsuario === '') {
+      id_tipo_usuario = null;
+    }
+    if (filters.id_carrera === '') {
+      id_carrera = null;
+    }
+
+    //SEXOS
+    if (filters.sexo === 'AMBOS') {
+      masculinos = true;
+      femeninos = true;
+    } else if (filters.sexo === 'MASCULINO') {
+      masculinos = true;
+      femeninos = false;
+    }
+    else if (filters.sexo === 'FEMENINO') {
+      femeninos = true;
+      masculinos = false;
+    }
+
+
+    console.log("Fecha Inicio:",fechaInicio,"Fecha Fin:",fechaFin,"Masculinos:",masculinos,"Femeninos:",femeninos,"Tipo Usuario:",id_tipo_usuario,"Carrera:",id_carrera);
 
     // Traer todos los datos sin aplicar filtros
-    this.http.get('http://127.0.0.1:8000/gestion/rdus/').subscribe((res: any) => {
-      this.filteredData = res;
-
-      this.filteredData.forEach((item: any) => {
-        item.id_carrera = this.carreras.find((carrera: any) => carrera.id === item.id_carrera).nombre;
-        item.id_facultad = this.facultades.find((facultad: any) => facultad.id === item.id_facultad).nombre;
-      });
-
+    this.http.get('http://127.0.0.1:8000/gestion/visitias/generarEstadisticasFront/?fecha_inicio=' + fechaInicio + '&fecha_fin=' + fechaFin + '&masculinos=' + masculinos + '&femeninos=' + femeninos + '&id_tipo_usuario=' + id_tipo_usuario + '&id_carrera=' + id_carrera).subscribe((res: any) => {
+      this.filteredData = res.registros_completos;
       //aplicar un pipe para filtrar por fecha, sexo, facultad, carrera y tipo de usuario
       console.log(this.filteredData);
-
-
+      }, (error: any) => {
+        console.log(error);
+        this.dialogService.openMessageBox('error', 'Error', 'No se ha podido obtener los datos. Verifique los filtros ingresados.');
       });
   }
 
@@ -211,16 +245,25 @@ export class RduComponent implements OnInit {
 
 
   exportarExcel() {
+
+    if (this.filteredData.length === 0) {
+      this.dialogService.openMessageBox('info', 'Información', 'No hay datos para exportar.');
+      return;
+    }
+
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.filteredData);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Hoja1');
     const excelBuffer: any = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    this.guardarArchivo(excelBuffer, 'datos');
+    this.guardarArchivo(excelBuffer, 'ConsultaVisitas');
   }
 
   private guardarArchivo(buffer: any, fileName: string): void {
+
+    const filters = this.consultaForm.value;
+
     const data: Blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
-    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + '.xlsx');
+    FileSaver.saveAs(data, fileName + '_(' + filters.fechaInicio+"_al_"+ filters.fechaFin + ').xlsx');
   }
 
 

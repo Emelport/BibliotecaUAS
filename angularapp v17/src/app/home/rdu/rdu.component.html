@@ -101,6 +101,7 @@
                     <select class="form-select" id="sexo" name="sexo" formControlName="sexo">
                       <option value="MASCULINO">MASCULINO</option>
                       <option value="FEMENINO">FEMENINO</option>
+                      <option value="AMBOS">AMBOS</option>
                     </select>
                 </div>
 
@@ -127,7 +128,7 @@
                     <label for="carrera" class="form-label">CARRERA</label>
                     <select class="form-select" id="carrera" name="carerra" formControlName="id_carrera">
                         @for (carrera of carreras; track carreras) {
-                            <option value="carrera{{carrera.id}}">{{carrera.nombre}}</option>
+                            <option value="{{carrera.id}}">{{carrera.nombre}}</option>
                         }
                     </select>
                 </div>
@@ -137,30 +138,33 @@
             <button type="button" class="btn btn-primary" (click)="applyFilters()">Buscar</button>
             <!-- Tabla de resultados -->
             <button type="button" class="btn btn-outline-success" (click)="exportarExcel()" style="float:right;">Exportar a Excel</button>
-
+            <!--   -->
+            <p class="count">Numero de Registros: {{filteredData.length}}</p>
             <table class="table">
               <thead>
                 <tr>
                   <th>ID</th>
                   <th>Nombre</th>
+                  <th>Apellidos</th>
+                  <th>Matricula</th>
                   <th>Sexo</th>
-                  <th>Tipo Visitante</th>
-                  <th>Fecha</th>
+                  <th>Tipo Usuario</th>
                   <th>Facultad</th>
                   <th>Carrera</th>
-                  <th>Hora</th>
+                  <th>Fecha</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let item of filteredData">
                   <td>{{ item.id }}</td>
                   <td>{{ item.nombre }}</td>
+                  <td>{{ item.apellidos }}</td>
+                  <td>{{ item.matricula }}</td>
                   <td>{{ item.sexo }}</td>
                   <td>{{ item.tipoUsuario }}</td>
-                  <td>{{ item.fechayhora | date }}</td>
                   <td>{{ item.id_facultad }}</td>
-                  <td>{{ item.id_carrera }}</td>
-                  <td>{{ item.fechayhora | date:'mediumTime' }}</td>
+                  <td>{{ item.nombre_carrera}}</td>
+                  <td>{{ item.fechayhora}}</td>
                 </tr>
               </tbody>
             </table>

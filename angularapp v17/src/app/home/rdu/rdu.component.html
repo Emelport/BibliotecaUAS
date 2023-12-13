@@ -5,20 +5,27 @@
       <button type="button" class="btn btn-primary" (click)="toggleView('consultas')">Consultas</button>
       <button type="button" class="btn btn-primary" (click)="toggleView('reportes')">Reportes</button>
     </div>
-    
+
     @if (view === 'capturar') {
         <div class="time-container">
-            
             <p class="date">{{ currentTime | date:'mediumDate' }}</p>
             <p class="time">{{ currentTime | date:'mediumTime' }}</p>
         </div>
       <form [formGroup]="capturasForm" (ngSubmit)="submitForm()" class="formulario">
-  
-        <div class="mb-3">
-          <label for="nombre" class="form-label">NOMBRE</label>
-          <input type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Nombre">
+
+        <div class="mb-3" >
+              <label for="nombre" class="form-label">NOMBRE</label>
+              <input type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Nombre">
         </div>
-  
+
+        <div class="mb-3" >
+          <label for="apellidos" class="form-label">APELLIDOS</label>
+          <input type="text" class="form-control" id="apellidos" formControlName="apellidos" placeholder="Apellidos">
+        </div>
+        <div class="mb-3" >
+            <label for="matricula" class="form-label">MATRICULA</label>
+            <input type="text" class="form-control" id="matricula" formControlName="matricula" placeholder="Matricula">
+        </div>
 
         <div class="checks">
             <div class="mb-3">
@@ -30,12 +37,12 @@
             </div>
             <div class="mb-3">
                 <label for="sexo" class="form-label">EXT/INT</label>
-                <select class="form-select" id="sexo" formControlName="tipoUsuario">
+                <select class="form-select" id="tipoUsuario" formControlName="tipoUsuario">
                   <option value="INTERNO">INTERNO</option>
                   <option value="ETERNO">EXTERNO</option>
                 </select>
             </div>
-              
+
 
             <!-- Combo Box con las carreras y facultades seleccionables -->
             <div class="mb-3">
@@ -46,9 +53,9 @@
                     }
                 </select>
             </div>
-            
+
             <div class="mb-3">
-                <label for="carrera" class="form-label">CARRERA</label>
+                <label for="carrera" class="form-label">PROGRAMA</label>
                 <select class="form-select" id="carrera" formControlName="id_carrera">
                     @for (carrera of carreras; track carreras) {
                         <option value="{{carrera.id}}">{{carrera.nombre}}</option>
@@ -61,9 +68,9 @@
         <button type="submit" class="btn btn-primary">Guardar</button>
       </form>
     }
-  
+
     @if (view === 'consultas') {
-    
+
             <form [formGroup]="consultaForm" class="filtros">
               <!-- rango de fechas, por sexo, por facultad, por carrera, interno o externo  -->
                 <div class="mb-3">
@@ -74,7 +81,7 @@
                     <label for="fechaFin" class="form-label">Fecha fin</label>
                     <input type="date" class="form-control" id="fechaFin" name="fechaFin" formControlName="fechaFin">
                 </div>
-                
+
                 <div class="mb-3">
                     <label for="sexo" class="form-label">SEXO</label>
                     <select class="form-select" id="sexo" name="sexo" formControlName="sexo">
@@ -89,7 +96,7 @@
                       <option value="INTERNO">INTERNO</option>
                       <option value="ETERNO">EXTERNO</option>
                     </select>
-                </div>    
+                </div>
 
                 <div class="mb-3">
                     <label for="facultad" class="form-label">FACULTAD</label>
@@ -141,9 +148,8 @@
                 </tr>
               </tbody>
             </table>
-     
-          
+
+
     }
 
   </div>
-  

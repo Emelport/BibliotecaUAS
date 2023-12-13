@@ -4,17 +4,35 @@
   <!-- Tab Navigation -->
   <ul class="nav nav-tabs justify-content-center" id="myTabs">
     <li class="nav-item">
-      <a class="nav-link active" id="carreras-tab" data-bs-toggle="tab" href="#carreras">Carreras</a>
+      <a class="nav-link active" id="carreras-tab" data-bs-toggle="tab" href="#carreras" (click)="seleccionarVista('carreras')">Carreras</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="facultades-tab" data-bs-toggle="tab" href="#facultades">Facultades</a>
+      <a class="nav-link" id="facultades-tab" data-bs-toggle="tab" href="#facultades" (click)="seleccionarVista('facultades')">Facultades</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" id="TipoUsuario-tab" data-bs-toggle="tab" href="#TipoUsuario" (click)="seleccionarVista('TipoUsuario')">Tipo de Usuario</a>
+    </li>
+
   </ul>
 
   <!-- Tab Content -->
   <div class="tab-content">
+
     <!-- Carreras Tab -->
-    <div class="tab-pane fade show active" id="carreras">
+    <div class="tab-pane fade show active" id="carreras"  >
+
+      <!-- Mostrar la carrera seccionada con un boton para qutiar la seleccion -->
+      @if ( selectedCarrera != null) {
+        <div class="info">
+          <div class="mb-3">
+            <label for="selectedCarrera" class="form-label">Programa Seleccionado</label>
+            <input type="text" class="form-control" id="selectedCarrera" name="selectedCarrera" [(ngModel)]="selectedCarrera.nombre" disabled>
+          </div>
+          <button type="button" class="btn btn-danger" (click)="deseleccionarCarrera()">Quitar Seleccion</button>
+        </div>
+      }
+
+
       <div class="container py-4">
         <div class="row g-0 align-items-center">
           <div class="col-lg-6 mb-5 mb-lg-1">
@@ -24,34 +42,47 @@
                 border-radius: 10px;
               ">
               <div class="card-body p-6 text-center">
-                <h2 class="fw-bold mb-5">CARRERAS</h2>
+                <h2 class="fw-bold mb-5">PROGRAMAS</h2>
+
                 <!-- Combo para seleccionar Carrera -->
                 <div class="mb-3">
-                  <label for="searchCarrera" class="form-label">Buscar carrera</label>
+                  <label for="searchCarrera" class="form-label">Buscar Programa</label>
                   <!-- Input de búsqueda -->
-                  <input type="text" class="form-control" id="searchCarrera" name="searchCarrera" (input)="filterCarreras($event)" placeholder="Buscar carrera">
-                
+                  <input type="text" class="form-control" id="searchCarrera" name="searchCarrera" (input)="filterCarreras($event)" placeholder="Buscar programa">
+
                   <!-- Lista filtrada de carreras -->
                   <ul *ngIf="carrerasFiltradas.length > 0" class="list-group mt-2">
-                    <li class="list-group-item" *ngFor="let carrera of carrerasFiltradas">
-                     <div class="carreras" (click)="seleccionarCarrera(carrera)">{{ carrera.nombre }}</div>
-                    </li> 
+                    <li class="contenedor-opciones" *ngFor="let carrera of carrerasFiltradas">
+                     <div class="opciones" (click)="seleccionarCarrera(carrera)">{{ carrera.nombre }}</div>
+                    </li>
                   </ul>
                 </div>
-                
+
                 <!-- Textbox id (disabled) y nombre bootstrap-->
                 <div class="mb-3">
                   <label for="id" class="form-label">ID</label>
-                  <input type="text" class="form-control" id="id" name="id" ngModel disabled>
+                  <input type="text" class="form-control" id="id" name="id" [(ngModel)]="idCarrera" disabled>
                 </div>
+
                 <div class="mb-3">
                   <label for="nombre" class="form-label">Nombre</label>
-                  <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="idCarrera">
+                  <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="nombreCarrera">
+                </div>
+
+
+                <!-- Combo para seleccionar Facultad -->
+                <div class="mb-3">
+                  <label for="selectedFacultad" class="form-label">Selecciona una facultad</label>
+                  <select class="form-select" id="selectedFacultad"  name="selectedFacultad">
+                    @for (facultad of facultades ; track facultad.id ) {
+                      <option value="{{ facultad.id }}" (click)="facultadCarrera(facultad)"  >{{ facultad.nombre }}</option>
+                    }
+                  </select>
                 </div>
 
                 <!-- Botones para añadir y eliminar carreras -->
-                <button type="button" class="btn btn-primary" (click)="agregarCarrera()">Añadir Carrera</button>
-                <button type="button" class="btn btn-danger" (click)="eliminarCarrera()">Eliminar Carrera</button>
+                <button type="button" class="btn btn-primary" (click)="agregarCarrera()">Guardar</button>
+
               </div>
             </div>
           </div>
@@ -61,6 +92,19 @@
 
     <!-- Facultades Tab -->
     <div class="tab-pane fade show" id="facultades">
+
+      <!-- Mostrar la carrera seccionada con un boton para qutiar la seleccion -->
+      @if ( selectedFacultad != null) {
+        <div class="info">
+          <div class="mb-3">
+            <label for="selectedCarrera" class="form-label">Programa Seleccionado</label>
+            <input type="text" class="form-control" id="selectedFacultad" name="selectedFacultad" [(ngModel)]="selectedFacultad.nombre" disabled>
+          </div>
+          <button type="button" class="btn btn-danger" (click)="deseleccionarFacultad()">Quitar Seleccion</button>
+        </div>
+      }
+
+
       <div class="container py-4">
         <div class="row g-0 align-items-center">
           <div class="col-lg-6 mb-5 mb-lg-1">
@@ -72,34 +116,103 @@
               <div class="card-body p-6 text-center">
                 <h2 class="fw-bold mb-5">FACULTADES</h2>
                 <!-- Combo para seleccionar Facultad -->
+                <!-- Combo para seleccionar Carrera -->
                 <div class="mb-3">
-                  <label for="selectedFacultad" class="form-label">Selecciona una facultad</label>
-                  <select class="form-select" id="selectedFacultad"  name="selectedFacultad">
-                    @for (facultad of facultades ; track facultad.id ) {
-                      <option value="{{facultad.id}}">{{ facultad.nombre }}</option>
-                    }
-                  </select>
-                </div>
+                  <label for="searchCarrera" class="form-label">Buscar Facultad</label>
+                  <!-- Input de búsqueda -->
+                  <input type="text" class="form-control" id="searchCarrera" name="searchCarrera" (input)="filterFacultades($event)" placeholder="Buscar Facultad">
 
+                  <!-- Lista filtrada de carreras -->
+                  <ul *ngIf="facultadesFiltradas.length > 0" class="list-group mt-2">
+                    <li class="contenedor-opciones" *ngFor="let facultad of facultadesFiltradas">
+                      <div class="opciones" (click)="seleccionarFacultad(facultad)">{{ facultad.nombre }}</div>
+                    </li>
+                  </ul>
+                </div>
                 <!-- Textbox id (disabled) y nombre bootstrap-->
                 <div class="mb-3">
                   <label for="id" class="form-label">ID</label>
-                  <input type="text" class="form-control" id="id"  name="id" disabled>
+                  <input type="text" class="form-control" id="id"  name="id" [(ngModel)]="idFacultad"  disabled>
                 </div>
                 <div class="mb-3">
                   <label for="nombre" class="form-label">Nombre</label>
-                  <input type="text" class="form-control" id="nombre"  name="nombre">
+                  <input type="text" class="form-control" id="nombre"  name="nombre" [(ngModel)]="nombreFacultad" >
                 </div>
 
                 <!-- Botones para añadir y eliminar facultades -->
                 <button type="button" class="btn btn-primary" (click)="agregarFacultad()">Añadir Facultad</button>
-                <button type="button" class="btn btn-danger" (click)="eliminarFacultad()">Eliminar Facultad</button>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+
+    <!-- Tipo de Usuario Tab -->
+    <div class="tab-pane fade show active" id="TipoUsuario" *ngIf="selectedTab === 'TipoUsuario'">
+
+      <!-- Mostrar la carrera seccionada con un boton para qutiar la seleccion -->
+      @if ( selectedTipoUsuario != null) {
+        <div class="info">
+          <div class="mb-3">
+            <label for="selectedCarrera" class="form-label">Tipo de Usuario Seleccionado:</label>
+            <input type="text" class="form-control" id="selectedTipoUsuario" name="selectedTipoUsuario" [(ngModel)]="selectedTipoUsuario.nombre" disabled>
+          </div>
+          <button type="button" class="btn btn-danger" (click)="deseleccionarTipoUsuario()">Quitar Seleccion</button>
+        </div>
+      }
+
+
+      <div class="container py-4">
+        <div class="row g-0 align-items-center">
+          <div class="col-lg-6 mb-5 mb-lg-1">
+            <div class="card cascading-right" style="
+                min-width: 32vw;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                border-radius: 10px;
+              ">
+              <div class="card-body p-6 text-center">
+                <h2 class="fw-bold mb-5">TIPO DE USUARIOS</h2>
+
+                <!-- Combo para seleccionar Carrera -->
+                <div class="mb-3">
+                  <label for="searchCarrera" class="form-label">Buscar Tipo Usuario</label>
+                  <!-- Input de búsqueda -->
+                  <input type="text" class="form-control" id="searchCarrera" name="searchCarrera" (input)="filterTiposUsuarios($event)" placeholder="Buscar Tipo de Usuario">
+
+                  <!-- Lista filtrada de carreras -->
+                  <ul *ngIf="tiposUsuariosFiltrados.length > 0" class="list-group mt-2">
+                    <li class="contenedor-opciones" *ngFor="let usuarios of tiposUsuariosFiltrados">
+                      <div class="opciones" (click)="seleccionarTipoUsuario(usuarios)">{{ usuarios.nombre }}</div>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Textbox id (disabled) y nombre bootstrap-->
+                <div class="mb-3">
+                  <label for="id" class="form-label">ID</label>
+                  <input type="text" class="form-control" id="id" name="id" [(ngModel)]="idTipoUsuario" disabled>
+                </div>
+
+                <div class="mb-3">
+                  <label for="nombre" class="form-label">Nombre</label>
+                  <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="nombreTipoUsuario">
+                </div>
+
+
+                <!-- Botones para añadir y eliminar carreras -->
+                <button type="button" class="btn btn-primary" (click)="agregarTipoUsuario()">Guardar</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div> <!-- Tab Content -->
 
 </section>

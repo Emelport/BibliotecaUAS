@@ -36,14 +36,16 @@ export class RduComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
-    
+
 
     ) {
     this.capturasForm = this.formBuilder.group({
       id: '',
       nombre: '',
+      apellidos: '',
+      matricula: '',
       sexo: '',
-      tipoUsuario: '',	
+      tipoUsuario: '',
       fechayhora: new Date(),
       id_facultad: '',
       id_carrera: '',
@@ -67,15 +69,15 @@ export class RduComponent implements OnInit {
     const data = this.capturasForm.value;
     console.log(data);
 
-    this.http.post('http://127.0.0.1:8000/gestion/rdus/', data).subscribe((res: any) => {	
+    this.http.post('http://127.0.0.1:8000/gestion/rdus/', data).subscribe((res: any) => {
       console.log(res);
     });
-    
+
   }
   applyFilters() {
     const filters = this.consultaForm.value;
     //console.log(filters);
-  
+
     // Traer todos los datos sin aplicar filtros
     this.http.get('http://127.0.0.1:8000/gestion/rdus/').subscribe((res: any) => {
       this.filteredData = res;
@@ -88,11 +90,11 @@ export class RduComponent implements OnInit {
 
       console.log(this.filteredData);
 
-  
+
       });
   }
-  
-  
+
+
   exportarExcel() {
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.filteredData);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
@@ -105,8 +107,8 @@ export class RduComponent implements OnInit {
     const data: Blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + '.xlsx');
   }
-      
-  
+
+
 
   ngOnInit(): void {
     this.updateTime();

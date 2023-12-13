@@ -23,7 +23,6 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
   newPassword: string = '';
-  email: string = '';
   nombre: string = '';
   apellidos: string = '';
   newUsuario: string = '';
@@ -39,7 +38,7 @@ export class LoginComponent {
     const credentials = { usuario: this.username.toLowerCase(), password: this.password };
     const service = new AuthService();
 
-  
+
     this.loginService.login(credentials).subscribe((user: IUsuario) => {
       // Si la autenticación es exitosa, redirige al usuario a la página "/home"
       service.login(user.nombre);
@@ -48,10 +47,12 @@ export class LoginComponent {
     }, error => {
       // Manejo de errores en caso de autenticación fallida
       console.error('Error en el inicio de sesión:', error);
-      this.dialogService.openMessageBox('error', 'Error', error).then(() => {
+      //VAlidar que no este vacio el error y mandar otra cosa cuando lo este
+
+      this.dialogService.openMessageBox('error', 'Error', error.statusText).then(() => {
         // En caso de que el usuario haga clic en el botón "Aceptar", se limpian los campos de usuario y contraseña
         this.password = '';
-      }); 
+      });
     });
   }
 
@@ -62,5 +63,15 @@ export class LoginComponent {
     const service = new AuthService();
 
    //consumir el api, mostrar mensaje de exito o error
+    this.loginService.register(credentials).subscribe((user: IUsuario) => {
+      // Si la autenticación es exitosa, redirige al usuario a la página "/home"
+      service.login(user.nombre);
+      console.log('Registro exitoso', user)
+      this.dialogService.openMessageBox('success', 'Registro exitoso', 'Usuario registrado correctamente');
+      this.router.navigate(['/home']);
+
+
+    });
+
   }
 }

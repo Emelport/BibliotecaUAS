@@ -4,7 +4,7 @@
     max-height: 880px;
     overflow: scroll;
     margin: auto;
-    border: 1px solid #ccc;  
+    border: 1px solid #ccc;
     padding: 20px;
     border-radius: 10px;
     /*Efecto de sombra*/
@@ -17,41 +17,41 @@
 .container::-webkit-scrollbar {
     width: 10px; /* Ancho de la barra de desplazamiento */
   }
-  
+
   .container::-webkit-scrollbar-thumb {
     background-color: #a19f9f; /* Color del pulgar de la barra de desplazamiento */
     border-radius: 10px; /* Bordes redondeados del pulgar */
   }
-  
+
   .container::-webkit-scrollbar-track {
     background-color: #f1f1f1; /* Color de fondo de la barra de desplazamiento */
   }
-  
+
   .container::-webkit-scrollbar-thumb:hover {
     background-color: #6b6b6b; /* Color del pulgar de la barra de desplazamiento al pasar el mouse */
   }
-  
+
   /* Estilo para los botones en el grupo de botones */
   .btn-group {
     margin-bottom: 20px;
   }
-  
+
   /* Estilo para el formulario */
   .formulario {
     margin-top: 20px;
   }
-  
+
   /* Estilo para la barra de consultas */
   .barra {
     margin-top: 20px;
   }
-  
+
   /* Estilo para la tabla de consultas */
   .table {
     width: 100%;
     margin-top: 20px;
   }
-  
+
   /* Añade estilos adicionales según sea necesario */
   /* full.component.css */
 
@@ -61,13 +61,13 @@
     border-radius: 5px;
     text-align: center;
   }
-  
+
   .time {
     font-size: 24px;
     color: #333;
     margin-bottom: 10px;
   }
-  
+
   .facultad-carrera{
     //  misma altura con la mitad del ancho cada elemento
     display: flex;
@@ -96,4 +96,19 @@
   .filtros{
     display: flex;
     justify-content: space-between;
+  }
+
+  .nombre label{
+    margin: 10px;
+    /*Que los labels sigan arriba de las cajas de texto*/
+    padding-top: 1vh;
+
+  }
+  .nombre{
+    display: flex;
+  }
+
+  .nombre inputs{
+    display: flex;
+
   }

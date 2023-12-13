@@ -192,6 +192,7 @@ export class RduComponent implements OnInit {
 
   applyFilters() {
     const filters = this.consultaForm.value;
+    let url = "http://127.0.0.1:8000/gestion/visitias/generarEstadisticasFront/"
 
     //Filtros
     //SOLO FECHA INICIO Y FECHA FIN EN FORMATO YYYY-MM-DD
@@ -203,12 +204,18 @@ export class RduComponent implements OnInit {
     let id_tipo_usuario = filters.tipoUsuario;
     let id_carrera = filters.id_carrera;
 
+    url = url + '?fecha_inicio=' + fechaInicio + '&fecha_fin=' + fechaFin;
     //Si no existe ponla null
     if (filters.tipoUsuario === '') {
       id_tipo_usuario = null;
+    }else{
+      url = url + '?id_tipo_usuario=' + id_tipo_usuario;
     }
+    
     if (filters.id_carrera === '') {
       id_carrera = null;
+    }else{
+      url = url + '?id_carrera=' + id_carrera;
     }
 
     //SEXOS
@@ -224,11 +231,13 @@ export class RduComponent implements OnInit {
       masculinos = false;
     }
 
+    url = url + '?masculinos=' + masculinos + '&femeninos=' + femeninos;
+
 
     console.log("Fecha Inicio:",fechaInicio,"Fecha Fin:",fechaFin,"Masculinos:",masculinos,"Femeninos:",femeninos,"Tipo Usuario:",id_tipo_usuario,"Carrera:",id_carrera);
 
     // Traer todos los datos sin aplicar filtros
-    this.http.get('http://127.0.0.1:8000/gestion/visitias/generarEstadisticasFront/?fecha_inicio=' + fechaInicio + '&fecha_fin=' + fechaFin + '&masculinos=' + masculinos + '&femeninos=' + femeninos + '&id_tipo_usuario=' + id_tipo_usuario + '&id_carrera=' + id_carrera).subscribe((res: any) => {
+    this.http.get(url).subscribe((res: any) => {
       this.filteredData = res.registros_completos;
       //aplicar un pipe para filtrar por fecha, sexo, facultad, carrera y tipo de usuario
       console.log(this.filteredData);

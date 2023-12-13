@@ -109,6 +109,7 @@
                 <div class="mb-3">
                   <label for="TipoUsuario" class="form-label">TIPO USUARIO</label>
                   <select class="form-select" id="TipoUsuario"  name="selectedTipoUsuario" formControlName="tipoUsuario">
+                    <option value="">TODOS</option>
                     @for (usuario of tipoUsuarios ; track usuario.id ) {
                       <option value="{{ usuario.id }}"  >{{ usuario.nombre }}</option>
                     }
@@ -118,6 +119,7 @@
                 <div class="mb-3">
                     <label for="facultad" class="form-label">FACULTAD</label>
                     <select class="form-select" id="facultad" name="facultad" formControlName="id_facultad">
+                      <option value="">TODAS</option>
                         @for (facultad of facultades; track facultades) {
                             <option value="{{facultad.id}}">{{facultad.nombre}}</option>
                         }
@@ -127,6 +129,8 @@
                 <div class="mb-3">
                     <label for="carrera" class="form-label">CARRERA</label>
                     <select class="form-select" id="carrera" name="carerra" formControlName="id_carrera">
+                        <!-- opcion todas sin valor -->
+                        <option value="">TODAS</option>
                         @for (carrera of carreras; track carreras) {
                             <option value="{{carrera.id}}">{{carrera.nombre}}</option>
                         }
@@ -161,10 +165,10 @@
                   <td>{{ item.apellidos }}</td>
                   <td>{{ item.matricula }}</td>
                   <td>{{ item.sexo }}</td>
-                  <td>{{ item.tipoUsuario }}</td>
-                  <td>{{ item.id_facultad }}</td>
+                  <td>{{ item.nombre_tipo_usuario }}</td>
+                  <td>{{ item.nombre_facultad }}</td>
                   <td>{{ item.nombre_carrera}}</td>
-                  <td>{{ item.fechayhora}}</td>
+                  <td>{{ item.fecha_visita}}</td>
                 </tr>
               </tbody>
             </table>

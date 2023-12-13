@@ -11,7 +11,6 @@ export class DialogService {
   openMessageBox(type: string, title: string, message: string): Promise<string> {
     return new Promise<string>((resolve) => {
       const dialogConfig: MatDialogConfig = {
-        width: '400px',
         data: { type, title, message},
         hasBackdrop: type === 'info', // Hacer clic fuera del diálogo para cerrar solo cuando messageType sea "info"
       };

@@ -35,12 +35,14 @@
                   <option value="FEMENINO">FEMENINO</option>
                 </select>
             </div>
+          <!-- Combo para seleccionar Tipo de Usuario -->
             <div class="mb-3">
-                <label for="sexo" class="form-label">EXT/INT</label>
-                <select class="form-select" id="tipoUsuario" formControlName="tipoUsuario">
-                  <option value="INTERNO">INTERNO</option>
-                  <option value="ETERNO">EXTERNO</option>
-                </select>
+              <label for="TipoUsuario" class="form-label">TIPO USUARIO</label>
+              <select class="form-select" id="TipoUsuario"  name="selectedTipoUsuario" formControlName="tipoUsuario">
+                @for (usuario of tipoUsuarios ; track usuario.id ) {
+                  <option value="{{ usuario.id }}"  >{{ usuario.nombre }}</option>
+                }
+              </select>
             </div>
 
 
@@ -67,6 +69,18 @@
 
         <button type="submit" class="btn btn-primary">Guardar</button>
       </form>
+      
+      <!-- Poner el formulario de visitas para cuando sea algo rapido -->
+      <form  [formGroup]="visitaForm" (ngSubmit)="submitVisita()" class="formulario">
+          <!-- Un textbox para la matricula y un boton para el submit -->
+          <div class="mb-3 visita" >
+              <p> ¿YA ESTAS REGISTRADO?</p>
+              <input type="text" class="form-control" id="matricula" formControlName="matricula" placeholder="Matricula">
+              <button type="submit" class="btn btn-primary">Visitar</button>
+          </div>
+       
+      </form>
+
     }
 
     @if (view === 'consultas') {
@@ -90,12 +104,14 @@
                     </select>
                 </div>
 
+                    <!-- Combo para seleccionar Tipo de Usuario -->
                 <div class="mb-3">
-                    <label for="sexo" class="form-label">EXT/INT</label>
-                    <select class="form-select" id="sexo" formControlName="tipoUsuario">
-                      <option value="INTERNO">INTERNO</option>
-                      <option value="ETERNO">EXTERNO</option>
-                    </select>
+                  <label for="TipoUsuario" class="form-label">TIPO USUARIO</label>
+                  <select class="form-select" id="TipoUsuario"  name="selectedTipoUsuario" formControlName="tipoUsuario">
+                    @for (usuario of tipoUsuarios ; track usuario.id ) {
+                      <option value="{{ usuario.id }}"  >{{ usuario.nombre }}</option>
+                    }
+                  </select>
                 </div>
 
                 <div class="mb-3">
@@ -151,5 +167,17 @@
 
 
     }
+
+    @if (view === 'reportes') {
+
+      
+      <!-- Ordenar los botones en un div, uno por cada consulta que se va aagregando hacia abajo -->
+      <div class="btn-group reportes">
+        <button type="button" class="btn btn-outline-secondary" (click)="CONCENTRADO_RDU()">CONCENTRADO DE REGISTRO DIARIO DE USUARIOS</button>
+      </div>
+    
+    }
+
+  
 
   </div>

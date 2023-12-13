@@ -98,6 +98,13 @@
     justify-content: space-between;
   }
 
+  .reportes{
+    display: flex;
+    /* columna */
+    flex-direction: column;
+
+  }
+
   .nombre label{
     margin: 10px;
     /*Que los labels sigan arriba de las cajas de texto*/
@@ -111,4 +118,23 @@
   .nombre inputs{
     display: flex;
 
+  }
+
+  .visita{
+    display: flex;
+    justify-content: space-between;
+    /* Borde, sombra todo */
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    /*Efecto de sombra*/
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    // fuente roboto negrita
+    font-family: Roboto, serif;
+    font-weight: bold;
+
+  }	
+
+  .visita button{
+    margin: 1vh;
   }

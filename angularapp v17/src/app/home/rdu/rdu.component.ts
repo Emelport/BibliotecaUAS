@@ -4,6 +4,7 @@ import { MaterialModule } from '../../../material.module';
 import { FormBuilder, FormsModule,FormGroup, ReactiveFormsModule} from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { DialogService } from '../../../services/dialog.service';
 //File saver y convertidor excel
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -21,6 +22,7 @@ export class RduComponent implements OnInit {
 
   capturasForm: FormGroup;
   consultaForm: FormGroup;
+  visitaForm: FormGroup;
   view: string = 'capturar';
   data: any[] = [
     // Aquí puedes poner tus datos de ejemplo
@@ -28,14 +30,17 @@ export class RduComponent implements OnInit {
   currentTime = new Date();
   currentDate = new Date();
   filteredData: any[] = [...this.data];
+
   //Arreglo con las carreras y otro para facultades vacios
   carreras: any[] = [];
   facultades: any[] = [];
+  tipoUsuarios: any[] = [];
 
 
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
+    private dialogService: DialogService
 
 
     ) {
@@ -58,6 +63,13 @@ export class RduComponent implements OnInit {
       id_carrera: '',
       tipoUsuario: '',
     });
+
+    this.visitaForm = this.formBuilder.group({
+      id: '',
+      fechayhora: new Date(),
+      matricula: '',
+      idRDU: ''
+    });
   }
 
   toggleView(view: string) {
@@ -67,13 +79,110 @@ export class RduComponent implements OnInit {
 
   submitForm() {
     const data = this.capturasForm.value;
+    const dataVisita = this.visitaForm.value;
+    //Si no existe matricula ponla null
+    if (data.matricula === '') {
+      data.matricula = null;
+    }
     console.log(data);
+
+    // si ya existe la matricula, no se registra pero avisar al usuario http://127.0.0.1:8000/gestion/rdus/'
 
     this.http.post('http://127.0.0.1:8000/gestion/rdus/', data).subscribe((res: any) => {
       console.log(res);
+      dataVisita.idRDU = res.id;
+      dataVisita.fechayhora = new Date();
+
+      
+      this.http.post('http://127.0.0.1:8000/gestion/visitias/', dataVisita).subscribe((res: any) => {
+        console.log(res);
+      }, (error: any) => {
+        console.log(error);
+      });
+
+      this.visitaForm.reset();
+
+      this.dialogService.openMessageBox('info', 'Registro exitoso', 'Tu registro y visita fue exitoso, favor de insertar la matricula las proximas visitas.');
+    }, (error: any) => {
+      console.log(error);
+      this.dialogService.openMessageBox('error', 'Error', 'No se ha podido registrar la captura.');
+      return;
     });
 
+    //Limpiar el formulario
+    this.capturasForm.reset();
+
+
+    
+
+
+
   }
+
+  submitVisita() {
+
+    const data = this.visitaForm.value;
+
+    if (data.matricula === '') {
+      this.dialogService.openMessageBox('error', 'Error', 'Inserte una matricula.');
+      return;
+    }
+    console.log(data);
+
+    this.http.get('http://127.0.0.1:8000/gestion/visitias/obtener_info_por_matricula/?matricula=' + data.matricula).subscribe((res: any) => {
+      //cargar los datos de la visita en el formulario capturasForm
+      console.log(res);
+      this.capturasForm.patchValue({
+        id: res.id,
+        nombre: res.nombre,
+        apellidos: res.apellidos,
+        matricula: res.matricula,
+        sexo: res.sexo,
+        tipoUsuario: res.tipoUsuario,
+        fechayhora: res.fechayhora,
+        id_facultad: res.id_facultad,
+        id_carrera: res.id_carrera,
+      });
+      
+      //asignar res.id a idRDU
+      this.visitaForm.patchValue({
+        idRDU: res.id,
+        fechayhora: new Date(),
+      });
+
+    });  
+
+
+
+    // Preguntar si la información es correcta si el resultado es "accept" proceder
+    this.dialogService.openMessageBox('warning', 'Información', '¿Eres tu?').then((result) => {
+    
+      if (result !== 'accept') {
+        this.dialogService.openMessageBox('info', 'Información', 'Se ha abortado el registro de la visita.');
+        this.capturasForm.reset();
+        return;
+      }
+      // Si la información es correcta, se registra la visita, id, fecha y hora de la visita y idRDU
+      const data = this.visitaForm.value;
+
+      this.http.post('http://127.0.0.1:8000/gestion/visitias/', data).subscribe((res: any) => {
+        console.log(res);
+        this.dialogService.openMessageBox('info', 'Registro exitoso', 'La visita se ha registrado correctamente.');
+      }, (error: any) => {
+        console.log(error);
+        this.dialogService.openMessageBox('error', 'Error', 'No se ha podido registrar la visita.');
+      });
+      });
+
+    //Limpiar el formulario
+    this.visitaForm.reset();
+    this.capturasForm.reset();
+
+  }
+    
+
+  
+
   applyFilters() {
     const filters = this.consultaForm.value;
     //console.log(filters);
@@ -86,12 +195,17 @@ export class RduComponent implements OnInit {
         item.id_carrera = this.carreras.find((carrera: any) => carrera.id === item.id_carrera).nombre;
         item.id_facultad = this.facultades.find((facultad: any) => facultad.id === item.id_facultad).nombre;
       });
-      //aplicar un pipe para filtrar por fecha, sexo, facultad, carrera y tipo de usuario
 
+      //aplicar un pipe para filtrar por fecha, sexo, facultad, carrera y tipo de usuario
       console.log(this.filteredData);
 
 
       });
+  }
+
+  CONCENTRADO_RDU() {
+    //abrir nueva pestaña con el reporte
+    window.open('http://127.0.0.1:8000/gestion/visitias/generarReporteFront', '_blank');
   }
 
 
@@ -123,7 +237,10 @@ export class RduComponent implements OnInit {
       this.facultades = res;
     });
 
-    //Cargar los datos
+    //Cargar los Tipos de Usuarios
+    this.http.get('http://127.0.0.1:8000/gestion/tiposusuarios/').subscribe((res: any) => {
+      this.tipoUsuarios = res;
+    });
   }
 
   private updateTime() {

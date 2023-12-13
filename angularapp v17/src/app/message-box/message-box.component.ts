@@ -21,7 +21,7 @@ export class MessageBoxComponent {
     this.messageTitle = this.data.title || 'Título del mensaje';
     this.messageContent = this.data.message || 'Este es un mensaje de ejemplo que puede variar según el tipo de mensaje';
 
-    if (this.messageType === 'info') {
+    if (this.messageType === 'info' || this.messageType === 'error') {
       this.acceptOnly = true;
     }
   }

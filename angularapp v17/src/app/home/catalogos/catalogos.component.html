@@ -37,11 +37,11 @@
         <div class="row g-0 align-items-center">
           <div class="col-lg-6 mb-5 mb-lg-1">
             <div class="card cascading-right" style="
-                min-width: 32vw;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-                border-radius: 10px;
-              ">
-              <div class="card-body p-6 text-center">
+                                min-width: 32vw;
+                                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                                border-radius: 10px;
+                              ">
+              <Form [formGroup]="catalogoCarreras" (ngSubmit)="agregarCarrera()" class="card-body p-6 text-center">
                 <h2 class="fw-bold mb-5">PROGRAMAS</h2>
 
                 <!-- Combo para seleccionar Carrera -->
@@ -53,7 +53,7 @@
                   <!-- Lista filtrada de carreras -->
                   <ul *ngIf="carrerasFiltradas.length > 0" class="list-group mt-2">
                     <li class="contenedor-opciones" *ngFor="let carrera of carrerasFiltradas">
-                     <div class="opciones" (click)="seleccionarCarrera(carrera)">{{ carrera.nombre }}</div>
+                    <div class="opciones" (click)="seleccionarCarrera(carrera)">{{ carrera.nombre }}</div>
                     </li>
                   </ul>
                 </div>
@@ -61,34 +61,37 @@
                 <!-- Textbox id (disabled) y nombre bootstrap-->
                 <div class="mb-3">
                   <label for="id" class="form-label">ID</label>
-                  <input type="text" class="form-control" id="id" name="id" [(ngModel)]="idCarrera" disabled>
+                  <input type="text" class="form-control inactivo" id="id" name="id" formControlName="id" >
                 </div>
 
                 <div class="mb-3">
                   <label for="nombre" class="form-label">Nombre</label>
-                  <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="nombreCarrera">
+                  <input type="text" class="form-control" id="nombre" name="nombre" formControlName="nombre">
                 </div>
 
 
                 <!-- Combo para seleccionar Facultad -->
                 <div class="mb-3">
                   <label for="selectedFacultad" class="form-label">Selecciona una facultad</label>
-                  <select class="form-select" id="selectedFacultad"  name="selectedFacultad">
+                  <select class="form-select" id="selectedFacultad"  name="selectedFacultad" formControlName="facultad" >
                     @for (facultad of facultades ; track facultad.id ) {
-                      <option value="{{ facultad.id }}" (click)="facultadCarrera(facultad)"  >{{ facultad.nombre }}</option>
+                      <option value="{{ facultad.id }}">{{ facultad.nombre }}</option>
                     }
                   </select>
                 </div>
 
                 <!-- Botones para añadir y eliminar carreras -->
-                <button type="button" class="btn btn-primary" (click)="agregarCarrera()">Guardar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
 
-              </div>
+              </Form>
+              
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+    </div> <!-- Carreras Tab -->
+
 
     <!-- Facultades Tab -->
     <div class="tab-pane fade show" id="facultades">
@@ -113,7 +116,7 @@
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
                 border-radius: 10px;
               ">
-              <div class="card-body p-6 text-center">
+              <Form [formGroup]="catalogoFacultades" (ngSubmit)="agregarFacultad()" class="card-body p-6 text-center">
                 <h2 class="fw-bold mb-5">FACULTADES</h2>
                 <!-- Combo para seleccionar Facultad -->
                 <!-- Combo para seleccionar Carrera -->
@@ -122,31 +125,31 @@
                   <!-- Input de búsqueda -->
                   <input type="text" class="form-control" id="searchCarrera" name="searchCarrera" (input)="filterFacultades($event)" placeholder="Buscar Facultad">
 
-                  <!-- Lista filtrada de carreras -->
+                  <!-- Lista filtrada de facultades -->
                   <ul *ngIf="facultadesFiltradas.length > 0" class="list-group mt-2">
                     <li class="contenedor-opciones" *ngFor="let facultad of facultadesFiltradas">
-                      <div class="opciones" (click)="seleccionarFacultad(facultad)">{{ facultad.nombre }}</div>
+                      <div class="opciones" (click)="seleccionarFacultad(facultad)" >{{ facultad.nombre }}</div>
                     </li>
                   </ul>
                 </div>
                 <!-- Textbox id (disabled) y nombre bootstrap-->
                 <div class="mb-3">
                   <label for="id" class="form-label">ID</label>
-                  <input type="text" class="form-control" id="id"  name="id" [(ngModel)]="idFacultad"  disabled>
+                  <input type="text" class="form-control inactivo" id="id"  name="id" formControlName="id"  >
                 </div>
                 <div class="mb-3">
                   <label for="nombre" class="form-label">Nombre</label>
-                  <input type="text" class="form-control" id="nombre"  name="nombre" [(ngModel)]="nombreFacultad" >
+                  <input type="text" class="form-control" id="nombre"  name="nombre" formControlName="nombre" >
                 </div>
 
                 <!-- Botones para añadir y eliminar facultades -->
-                <button type="button" class="btn btn-primary" (click)="agregarFacultad()">Añadir Facultad</button>
-              </div>
+                <button type="submit" class="btn btn-primary">Añadir Facultad</button>
+              </Form>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div> <!-- Facultades Tab -->
 
     <!-- Tipo de Usuario Tab -->
     <div class="tab-pane fade show active" id="TipoUsuario" *ngIf="selectedTab === 'TipoUsuario'">
@@ -171,7 +174,7 @@
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
                 border-radius: 10px;
               ">
-              <div class="card-body p-6 text-center">
+              <Form [formGroup]="catalogoTiposUsuarios" (ngSubmit)="agregarTipoUsuario()" class="card-body p-6 text-center">
                 <h2 class="fw-bold mb-5">TIPO DE USUARIOS</h2>
 
                 <!-- Combo para seleccionar Carrera -->
@@ -191,28 +194,25 @@
                 <!-- Textbox id (disabled) y nombre bootstrap-->
                 <div class="mb-3">
                   <label for="id" class="form-label">ID</label>
-                  <input type="text" class="form-control" id="id" name="id" [(ngModel)]="idTipoUsuario" disabled>
+                  <!-- <input type="text" class="form-control" id="id" name="id" formControlName="id" > NO SE PUEDA MODIFICAR NADA -->
+                  <input type="text" class="form-control inactivo" id="id" name="id" formControlName="id" >
                 </div>
 
                 <div class="mb-3">
                   <label for="nombre" class="form-label">Nombre</label>
-                  <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="nombreTipoUsuario">
+                  <input type="text" class="form-control" id="nombre" name="nombre" formControlName="nombre">
                 </div>
 
 
                 <!-- Botones para añadir y eliminar carreras -->
-                <button type="button" class="btn btn-primary" (click)="agregarTipoUsuario()">Guardar</button>
+                <button type="submit" class="btn btn-primary" >Guardar</button>
 
-              </div>
+              </Form>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </div> <!-- container -->
 
-
-
-
-  </div> <!-- Tab Content -->
-
+    </div> <!-- Tipo de Usuario Tab -->
+  </div>
 </section>

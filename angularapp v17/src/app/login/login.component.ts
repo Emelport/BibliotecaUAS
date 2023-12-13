@@ -48,8 +48,7 @@ export class LoginComponent {
       // Manejo de errores en caso de autenticación fallida
       console.error('Error en el inicio de sesión:', error);
       //VAlidar que no este vacio el error y mandar otra cosa cuando lo este
-
-      this.dialogService.openMessageBox('error', 'Error', error.statusText).then(() => {
+      this.dialogService.openMessageBox('error', 'Error', "Error al iniciar Sesion, Favor de comprobar sus credenciales.").then(() => {
         // En caso de que el usuario haga clic en el botón "Aceptar", se limpian los campos de usuario y contraseña
         this.password = '';
       });
@@ -67,7 +66,7 @@ export class LoginComponent {
       // Si la autenticación es exitosa, redirige al usuario a la página "/home"
       service.login(user.nombre);
       console.log('Registro exitoso', user)
-      this.dialogService.openMessageBox('success', 'Registro exitoso', 'Usuario registrado correctamente');
+      this.dialogService.openMessageBox('info', 'Registro exitoso', 'Usuario registrado correctamente');
       this.router.navigate(['/home']);
 
 

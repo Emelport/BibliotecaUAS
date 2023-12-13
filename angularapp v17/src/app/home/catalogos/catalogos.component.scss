@@ -18,6 +18,10 @@
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
+    /* pase por encima de los demas elementos htlm sin amontonarse la lista */
+    position: relative;
+    z-index: 0;
+    
   }
 
   .contenedor-opciones{
@@ -31,7 +35,7 @@
 
   .opciones:hover{
     //Click en el elemento
-    background-color: #ccc;
+    background-color: #6ddd8f;
     cursor: pointer;
   }
 
@@ -54,4 +58,11 @@
 
   .info button {
     margin: 0 auto;
+  }
+
+  .inactivo {
+
+    /* que no se pueda modificar */
+    pointer-events: none;
+    background-color: #ccc;
   }

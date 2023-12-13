@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../../material.module';
 import { HttpClientModule,HttpClient } from '@angular/common/http';
 import { DialogService } from '../../../services/dialog.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-catalogos',
   standalone: true,
-  imports: [CommonModule,MaterialModule,HttpClientModule],
+  imports: [CommonModule,MaterialModule,HttpClientModule,ReactiveFormsModule],
   templateUrl: './catalogos.component.html',
   styleUrl: './catalogos.component.scss'
 })
@@ -21,25 +22,35 @@ export class CatalogosComponent implements OnInit{
     selectedFacultad: any;
     selectedCarrera: any;
 
-    //CARRERA
-    idCarrera: String="";
-    nombreCarrera: String="";
-    idFacultadCarrera: Number=1;
-
-    //FACULTAD
-    idFacultad: String="";
-    nombreFacultad: String="";
-
-    //TIPO DE USUARIO
-    idTipoUsuario: String="";
-    nombreTipoUsuario: String="";
+    //Formularios para cada catalogo
+    catalogoCarreras: FormGroup;
+    catalogoFacultades: FormGroup;
+    catalogoTiposUsuarios: FormGroup;   
 
     selectedTab: string = 'carreras';
     carrerasFiltradas: any[] = [];
     facultadesFiltradas: any[] = [];
     tiposUsuariosFiltrados: any[] = [];
 
-    constructor(private http: HttpClient, private dialogService: DialogService) { }
+    constructor(private http: HttpClient, private dialogService: DialogService, private formBuilder: FormBuilder) {
+
+      this.catalogoCarreras = this.formBuilder.group({
+        id: '',
+        nombre: '',
+        facultad: ''
+      });
+      
+      this.catalogoFacultades = this.formBuilder.group({
+        id: '',
+        nombre: ''
+      });
+
+      this.catalogoTiposUsuarios = this.formBuilder.group({
+        id: '',
+        nombre: ''
+      });
+
+     }
 
 
 
@@ -93,20 +104,11 @@ export class CatalogosComponent implements OnInit{
     }
 
     agregarFacultad(){
-      //campos vacios
-      if (this.nombreFacultad == "") {
-        this.dialogService.openMessageBox('info', 'Confirmar', 'Debes llenar todos los campos para poder crear una facultad.').then((result) => {
-        });
-        return;
-      }
+      const facultad = this.catalogoFacultades.value;
+      console.log("FACULTAD",facultad);
 
-      //Si hay alguna facultad seleccionada, se actualiza http://127.0.0.1:8000/gestion/facultades/id
+      //Si hay alguna facultad seleccionada, se actualiza http://
       if(this.selectedFacultad) {
-        //Crear el objeto a enviar
-        let facultad = {
-          id: this.selectedFacultad.id,
-          nombre: this.nombreFacultad
-        }
 
         this.dialogService.openMessageBox('warning', 'Confirmar', '¿Estás seguro de que deseas actualizar la facultad? Revisa La informacion antes de actualizar.').then((result) => {
           this.http.put('http://127.0.0.1:8000/gestion/facultades/' + this.selectedFacultad.id + '/', facultad).subscribe((res: any) => {
@@ -117,11 +119,7 @@ export class CatalogosComponent implements OnInit{
           });
         });
       }else {
-        //Si no hay ninguna facultad seleccionada, se crea http://http://127.0.0.1:8000/gestion/facultades/
-        let facultad = {
-          nombre: this.nombreFacultad
-        }
-
+        //Si no hay ninguna facultad seleccionada, se crea http://
         this.dialogService.openMessageBox('warning', 'Confirmar', '¿Estás seguro de que deseas crear la facultad?').then((result) => {
           this.http.post('http://127.0.0.1:8000/gestion/facultades/', facultad).subscribe((res: any) => {
             console.log("FACULTAD CREADA", res);
@@ -131,28 +129,18 @@ export class CatalogosComponent implements OnInit{
         });
       }
 
+      
 
     }
 
     agregarTipoUsuario() {
-
-      //campos vacios
-      if (this.nombreTipoUsuario == "") {
-        this.dialogService.openMessageBox('info', 'Confirmar', 'Debes llenar todos los campos para poder crear un tipo de usuario.').then((result) => {
-        });
-        return;
-      }
+      const data = this.catalogoTiposUsuarios.value;
 
       //Si hay algun tipo de usuario seleccionado, se actualiza http://127.0.0.1:8000/gestion/tiposusuarios/id"
       if (this.selectedTipoUsuario) {
-        //Crear el objeto a enviar
-        let tipoUsuario = {
-          id: this.selectedTipoUsuario.id,
-          nombre: this.nombreTipoUsuario
-        }
 
         this.dialogService.openMessageBox('warning', 'Confirmar', '¿Estás seguro de que deseas actualizar el tipo de usuario? Revisa La informacion antes de actualizar.').then((result) => {
-          this.http.put('http://127.0.0.1:8000/gestion/tiposusuarios/' + this.selectedTipoUsuario.id + '/', tipoUsuario).subscribe((res: any) => {
+          this.http.put('http://127.0.0.1:8000/gestion/tiposusuarios/' + this.selectedTipoUsuario.id + '/', data).subscribe((res: any) => {
               console.log("TIPO DE USUARIO ACTUALIZADO", res);
               this.cargarTipoUsuarios();
               this.deseleccionarTipoUsuario();
@@ -162,12 +150,10 @@ export class CatalogosComponent implements OnInit{
         });
 
       }else {
-        let tipoUsuario = {
-          nombre: this.nombreTipoUsuario
-        }
+
         //Si no hay ningun tipo de usuario seleccionado, se crea http://127.0.0.1:8000/gestion/tiposusuarios/ sin mandar el id
         this.dialogService.openMessageBox('warning', 'Confirmar', '¿Estás seguro de que deseas crear el tipo de usuario?').then((result) => {
-          this.http.post('http://127.0.0.1:8000/gestion/tiposusuarios/', tipoUsuario).subscribe((res: any) => {
+          this.http.post('http://127.0.0.1:8000/gestion/tiposusuarios/', data).subscribe((res: any) => {
               console.log("TIPO DE USUARIO CREADO", res);
               this.cargarTipoUsuarios();
               this.deseleccionarTipoUsuario();
@@ -179,35 +165,13 @@ export class CatalogosComponent implements OnInit{
     }
 
     agregarCarrera() {
-
-      //campos vacios
-      if (this.nombreCarrera == "") {
-        this.dialogService.openMessageBox('info', 'Confirmar', 'Debes llenar todos los campos para poder crear una carrera.').then((result) => {
-        });
-        return;
-      }
-
-      //Crear el objeto a enviar
-      let carrera = {
-        id: this.selectedCarrera.id,
-        nombre: this.nombreCarrera,
-        facultad: this.selectedCarrera.facultad
-      }
-
+      const data = this.catalogoCarreras.value;
 
       //Si hay alguna carrera seleccionada, se actualiza http://127.0.0.1:8000/gestion/carreras/id"
       if(this.selectedCarrera) {
 
-        //Crear el objeto a enviar
-        let carrera = {
-          id: this.selectedCarrera.id,
-          nombre: this.nombreCarrera,
-          facultad: this.selectedCarrera.facultad
-        }
-
-
         this.dialogService.openMessageBox('warning', 'Confirmar', '¿Estás seguro de que deseas actualizar la carrera? Revisa La informacion antes.').then((result) => {
-          this.http.put('http://127.0.0.1:8000/gestion/carreras/' + this.selectedCarrera.id + '/', carrera).subscribe((res: any) => {
+          this.http.put('http://127.0.0.1:8000/gestion/carreras/' + this.selectedCarrera.id + '/', data).subscribe((res: any) => {
             console.log("CARRERA ACTUALIZADA", res);
             this.cargarCarreras();
             this.deseleccionarCarrera();
@@ -217,7 +181,7 @@ export class CatalogosComponent implements OnInit{
       }else {
         //Si no hay ninguna carrera seleccionada, se crea http://
         this.dialogService.openMessageBox('warning', 'Confirmar', '¿Estás seguro de que deseas crear la carrera?').then((result) => {
-          this.http.post('http://127.0.0.1:8000/gestion/carreras/', carrera).subscribe((res: any) => {
+          this.http.post('http://127.0.0.1:8000/gestion/carreras/', data).subscribe((res: any) => {
             console.log("CARRERA CREADA", res);
             this.cargarCarreras();
             this.deseleccionarCarrera();
@@ -235,52 +199,66 @@ export class CatalogosComponent implements OnInit{
     seleccionarCarrera(carrera: any){
         console.log("CARRERA SELECCIONADA",carrera);
         this.selectedCarrera = carrera;
-        this.idCarrera = carrera.id;
-        this.nombreCarrera = carrera.nombre;
-        this.idFacultadCarrera = carrera.facultad;
         this.carrerasFiltradas = [];
+
+        //Cargarla en el catalogoCarrera
+        this.catalogoCarreras.patchValue({
+          id: carrera.id,
+          nombre: carrera.nombre,
+          facultad: carrera.facultad
+        });
     }
 
-  facultadCarrera(any: any){
-      this.idFacultadCarrera = any.id;
-      console.log("ID FACULTAD CARRERA",this.idFacultadCarrera)
+  deseleccionarCarrera(){
+      this.selectedCarrera = null;
+      this.carrerasFiltradas = [];
+      //limpiar el formulario 
+      this.catalogoCarreras.reset();
   }
-    deseleccionarCarrera(){
-        this.selectedCarrera = null;
-        this.idCarrera = "";
-        this.nombreCarrera = "";
-        this.carrerasFiltradas = [];
-    }
 
   seleccionarFacultad(facultad: any){
     console.log("FACULTAD SELECCIONADA",facultad);
     this.carrerasFiltradas = [];
-    this.nombreFacultad = facultad.nombre;
-    this.idFacultad = facultad.id;
     this.selectedFacultad = facultad;
     this.facultadesFiltradas = [];
+
+    //Cargarla en el catalogoFacultad
+    this.catalogoFacultades.patchValue({
+      id: facultad.id,
+      nombre: facultad.nombre
+    });
   }
 
   seleccionarTipoUsuario(tipoUsuario: any){
     console.log("TIPO DE USUARIO SELECCIONADO",tipoUsuario);
     this.carrerasFiltradas = [];
-    this.nombreTipoUsuario = tipoUsuario.nombre;
-    this.idTipoUsuario = tipoUsuario.id;
-    this.selectedTipoUsuario = tipoUsuario;
     this.tiposUsuariosFiltrados = [];
+
+    this.selectedTipoUsuario = tipoUsuario;
+
+    //Cargarla en el catalogoTipoUsuario
+    this.catalogoTiposUsuarios.patchValue({
+      id: tipoUsuario.id,
+      nombre: tipoUsuario.nombre
+    });
 
   }
 
   deseleccionarFacultad(){
-    this.selectedFacultad = null;
-    this.idFacultad = "";
-    this.nombreFacultad = "";
+    this.selectedFacultad = null;3
     this.facultadesFiltradas = [];
+
+    //limpiar el formulario
+    this.catalogoFacultades.reset();
   }
 
   deseleccionarTipoUsuario(){
     this.selectedTipoUsuario = null;
-    this.idTipoUsuario = "";
-    this.nombreTipoUsuario = "";
+    this.tiposUsuariosFiltrados = [];
+
+    //limpiar el formulario
+    this.catalogoTiposUsuarios.reset();
   }
+
 }
+

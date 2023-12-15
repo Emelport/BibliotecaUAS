@@ -23,7 +23,7 @@
           <input type="text" class="form-control" id="apellidos" formControlName="apellidos" placeholder="Apellidos">
         </div>
         <div class="mb-3" >
-            <label for="matricula" class="form-label">MATRICULA</label>
+            <label for="matricula" class="form-label">MATRICULA (Si no tienes una, déjala Vacia).</label>
             <input type="text" class="form-control" id="matricula" formControlName="matricula" placeholder="Matricula">
         </div>
 
@@ -147,7 +147,6 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th>ID</th>
                   <th>Nombre</th>
                   <th>Apellidos</th>
                   <th>Matricula</th>
@@ -160,7 +159,6 @@
               </thead>
               <tbody>
                 <tr *ngFor="let item of filteredData">
-                  <td>{{ item.id }}</td>
                   <td>{{ item.nombre }}</td>
                   <td>{{ item.apellidos }}</td>
                   <td>{{ item.matricula }}</td>
@@ -168,7 +166,7 @@
                   <td>{{ item.nombre_tipo_usuario }}</td>
                   <td>{{ item.nombre_facultad }}</td>
                   <td>{{ item.nombre_carrera}}</td>
-                  <td>{{ item.fecha_visita}}</td>
+                  <td>{{ item.fechayhora | date:'medium' }}</td>
                 </tr>
               </tbody>
             </table>

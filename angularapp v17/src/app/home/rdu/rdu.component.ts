@@ -153,15 +153,7 @@ export class RduComponent implements OnInit {
         fechayhora: new Date(),
       });
 
-    
-
-    }, (error: any) => {
-      console.log(error);
-      this.dialogService.openMessageBox('error', 'Error', 'No se ha podido obtener la información de la matricula o no existe.');
-      return;
-    });  
-
-    
+          
     
     // Preguntar si la información es correcta si el resultado es "accept" proceder
     this.dialogService.openMessageBox('warning', 'Información', '¿Eres tu?').then((result) => {
@@ -184,11 +176,33 @@ export class RduComponent implements OnInit {
       });
       });
 
+    
+
+    }, (error: any) => {
+      console.log(error);
+      this.dialogService.openMessageBox('error', 'Error', 'No se ha podido obtener la información de la matricula o no existe.');
+      return;
+    });  
+
+
+
     //Limpiar el formulario
     this.visitaForm.reset();
 
 
   }
+
+  formatDate(date: Date): string {
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const seconds = date.getSeconds().toString().padStart(2, '0');
+  
+    return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+  }
+  
 
 
   formatoFecha(fecha: Date): string {
